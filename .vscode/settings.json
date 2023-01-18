@@ -1,0 +1,16 @@
+{
+    "files.exclude": {
+        "**/.env.test": true,
+        "**/.gitignore": true,
+        "**/migrations": true,
+        "**/tests": true,
+        "**/translations": true,
+        "**/var": true,
+        "**/vendor": true
+    },
+    "explorer.fileNesting.patterns": {
+        "*.json": "${capture}.lock",
+        "*.override.yml": "${capture}.yml",
+        "*.env": "composer.json, docker-compose.override.yml, phpunit.xml.dist, symfony.lock"
+    }
+}
