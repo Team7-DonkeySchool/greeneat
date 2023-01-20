@@ -1,4 +1,11 @@
 <p>{{ title }}</p>
-<img [src]="imagePath" alt="">
+<img [src]="image" alt="">
 <br>
-<input type="text">
+<input type="text" [(ngModel)]="searchInput">
+<button type="submit" (click)="onSearchRecipe()">Rechercher une autre recette</button>
+<br>
+<div *ngFor="let recipe of recipes">
+    <p>{{ recipe.title }}</p>
+    <img [src]="imageRecipeUrl + recipe.image" alt="">
+    <br><br>
+</div>
