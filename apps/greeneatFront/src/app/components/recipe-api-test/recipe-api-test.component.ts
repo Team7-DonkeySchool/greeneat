@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiSpoonacularService } from 'src/app/services/api-spoonacular.service';
+import { Recipe } from 'src/app/typings';
 
 @Component({
   selector: 'app-recipe-api-test',
@@ -9,19 +10,30 @@ import { ApiSpoonacularService } from 'src/app/services/api-spoonacular.service'
 export class RecipeApiTestComponent implements OnInit{
 
   title?: string;
-  imagePath?: string;
-  //searchInput = 'recherche';
+  image?: string;
+  searchInput = '';
+  idRecipe = 1;
+  titleResult?: string;
+  imageResult?: string;
+  recipes?: any;
+  imageRecipeUrl = 'https://spoonacular.com/recipeImages/';
 
-  constructor(private apiService: ApiSpoonacularService) {
+  constructor(private apiSpoonService: ApiSpoonacularService) {
   }
 
   ngOnInit(): void {
-    this.apiService.getApiSpoonacular(1).subscribe((data)=>{
+    this.apiSpoonService.getApiSpoonacularById(this.idRecipe).subscribe((data)=>{
       console.log(data);
-    });
+      this.title = data.title;
+      this.image = data.image;
 
-    this.apiService.getApiSpoonacularByName('sandwich').subscribe((data)=>{
-      console.log('data2', data);
+    });
+  }
+
+  onSearchRecipe() {
+    this.apiSpoonService.getApiSpoonacularByName(this.searchInput).subscribe((data)=>{
+      this.recipes = data.results;
+      console.log(this.recipes);
     });
   }
 }

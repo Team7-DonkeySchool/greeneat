@@ -9,8 +9,8 @@ export class ApiService {
 
   constructor(protected http: HttpClient) { }
 
-  get(baseUrl: string, id: string | number, spoonOption: string, options: any = {}) {
+  get(baseUrl: string, id: string | number, options: any = {}) {
     return this.http
-      .get<Recipe>(`${baseUrl}${id}/${spoonOption}`, { params: options })
+      .get(`${baseUrl}/${id}/`, { params: options });
   };
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Recipe } from '../typings';
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { ArrayRecipes, Recipe } from '../typings';
 import { ApiService } from './api.service';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,23 +11,27 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiSpoonacularService extends ApiService {
 
-  getApiSpoonacular(idRecipe: number) {
-    return this.get(environment.baseUrlSpoonacular, idRecipe, 'information', this.getQueryParams());
-  };
+  /* set the number of recipes for the getApiSpoonacularByName method */
+  quantityRecipesReceived = 10;
 
-  getApiSpoonacularByName(name: string) {
-    return this.get(environment.baseUrlSpoonacular, '', `search?apiKey=dbfb5a18aa1949a78c5aa7bb02494fd9&number=1&query=${name}`);
-  }
-/*     return this.get(environment.baseUrlSpoonacular, '', 'search', this.getQueryParams() + {
-      number: 1,
-      query: name
-    }); */
-    // https://api.spoonacular.com/recipes/search?apiKey=dbfb5a18aa1949a78c5aa7bb02494fd9&number=1&query="searchRequest"  };
+  getApiSpoonacularById(idRecipe: number): Observable<Recipe> {
 
-  private getQueryParams()
-  {
-    return {
-      apiKey: environment.spoonacularApiKey,
-    };
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("apiKey", environment.spoonacularApiKey);
+
+    return this.http
+      .get<Recipe>(`${environment.baseUrlSpoonacular}/${idRecipe}/information`, {params: queryParams});
   }
+
+  getApiSpoonacularByName(name: string): Observable<ArrayRecipes> {
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("apiKey", environment.spoonacularApiKey);
+    queryParams = queryParams.append("number", this.quantityRecipesReceived);
+    queryParams = queryParams.append("query", name);
+
+    return this.http
+      .get<ArrayRecipes>(`${environment.baseUrlSpoonacular}/search`, {params: queryParams});
+  }
+
 }
