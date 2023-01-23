@@ -1,12 +1,15 @@
-<input type="text" [(ngModel)]="productName">
+<input type="text" [(ngModel)]="productName" placeholder="nom">
+
 <button type="submit" (click)="onSubmit()">Rechercher un produit dans OpenFoodFacts</button>
 <div *ngFor="let product of products">
     <h3>{{ product.product_name_fr }}</h3>
     <ul>
-        <li>ecoscore: {{ product.ecoscore_grade}}</li>
-        <li>nutriscore: {{ product.nutriscore_grade}}</li>
-        <li>fat_100g: {{ product.fat_100g}}</li>
-        <li>sugar_100g: {{ product.sugar_100g}}</li>
+        <li [ngStyle]="{'color': 'red'}">ecoscore: {{ product.ecoscore_grade }}</li>
+        <li>nutriscore: {{ product.nutriscore_grade }}</li>
+        <li>fat_100g: {{ product.nutriments.fat_100g }}</li>
+        <li>sugars_100g: {{ product.nutriments.sugars_100g }}</li>
+        <li>sodium_100g: {{ product.nutriments.sodium_100g }}</li>
+        <li>energy-kcal_100g: {{ product.nutriments['energy-kcal_100g'] }}</li>
     </ul> 
 </div>
 <br>

@@ -1,5 +1,13 @@
+<h1>Recette affichée par id = 1</h1>
 <p>{{ title }}</p>
 <img [src]="image" alt="">
+<br>
+<h2>Ingrédients :</h2>
+<ul *ngFor="let ingredient of ingredients">
+    <li>{{ ingredient.name }} : {{ ingredient.measures.metric.amount }}{{ ingredient.measures.metric.unitShort }}</li>
+</ul>
+
+
 <br>
 <input type="text" [(ngModel)]="searchInput">
 <button type="submit" (click)="onSearchRecipe()">Rechercher une autre recette</button>

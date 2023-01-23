@@ -16,10 +16,12 @@ export class ApiOpenfoodfactsService extends ApiService {
     queryParams = queryParams.append("search_terms", productName);
     queryParams = queryParams.append("search_simple", 1);
     queryParams = queryParams.append("action", "process");
+    queryParams = queryParams.append("page_size", 50);
     queryParams = queryParams.append("json", 1);
 
     return this.http
       .get<ArrayProductsOpenFoodFacts>(`${environment.baseUrlOpenfoodFacts}search.pl`, {params: queryParams})
   };
+
 
 }

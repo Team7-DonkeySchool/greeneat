@@ -1,6 +1,20 @@
 export interface Recipe {
     title: string,
     image: string,
+    dishTypes: string[],
+    extendedIngredients: Ingredient[],
+}
+
+export interface Ingredient {
+    id: number,
+    name: string,
+    measures: {
+        metric: {
+            amount: number,
+            unitShort: string,
+            unitLong: string
+        }
+    }
 }
 
 export interface ArrayRecipes {
@@ -19,3 +33,14 @@ export interface ArrayProductsOpenFoodFacts {
     products: [],
 }
 
+export interface Product {
+    nutriscore_grade: number | string,
+    ecoscore_grade: number | string,
+    product_name_fr: string,
+    nutriments: {
+        fat_100g: number,
+        sugars_100g: number,
+        sodium_100g: number,
+        "energy-kcal_100g": number
+    },
+}

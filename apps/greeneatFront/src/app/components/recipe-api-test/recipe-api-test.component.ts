@@ -16,6 +16,7 @@ export class RecipeApiTestComponent implements OnInit{
   titleResult?: string;
   imageResult?: string;
   recipes?: any;
+  ingredients?: any;
   imageRecipeUrl = 'https://spoonacular.com/recipeImages/';
 
   constructor(private apiSpoonService: ApiSpoonacularService) {
@@ -26,7 +27,7 @@ export class RecipeApiTestComponent implements OnInit{
       console.log(data);
       this.title = data.title;
       this.image = data.image;
-
+      this.ingredients = data.extendedIngredients;
     });
   }
 
