@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class ApiSpoonacularService extends ApiService {
 
   /* set the number of recipes for the getApiSpoonacularByName method */
-  quantityRecipesReceived = 10;
+  quantityRecipesReceived = 3;
 
   getApiSpoonacularById(idRecipe: number): Observable<Recipe> {
 
@@ -23,12 +23,12 @@ export class ApiSpoonacularService extends ApiService {
       .get<Recipe>(`${environment.baseUrlSpoonacular}/${idRecipe}/information`, {params: queryParams});
   }
 
-  getApiSpoonacularByName(name: string): Observable<ArrayRecipes> {
+  getApiSpoonacularByName(recipeName: string): Observable<ArrayRecipes> {
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append("apiKey", environment.spoonacularApiKey);
     queryParams = queryParams.append("number", this.quantityRecipesReceived);
-    queryParams = queryParams.append("query", name);
+    queryParams = queryParams.append("query", recipeName);
 
     return this.http
       .get<ArrayRecipes>(`${environment.baseUrlSpoonacular}/search`, {params: queryParams});

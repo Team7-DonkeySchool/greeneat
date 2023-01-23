@@ -1,4 +1,5 @@
 export const environment = {
     baseUrlSpoonacular: 'https://api.spoonacular.com/recipes/',
-    spoonacularApiKey: 'dbfb5a18aa1949a78c5aa7bb02494fd9'
+    spoonacularApiKey: 'dbfb5a18aa1949a78c5aa7bb02494fd9',
+    baseUrlOpenfoodFacts: 'https://world.openfoodfacts.org/cgi/',
 };
