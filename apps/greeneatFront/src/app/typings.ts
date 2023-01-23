@@ -10,3 +10,12 @@ export interface ArrayRecipes {
         image: string,
     },
 }
+
+export interface ArrayProductsOpenFoodFacts {
+    count: number,
+    page: number,
+    page_count: number,
+    page_size: number,
+    products: [],
+}
+
