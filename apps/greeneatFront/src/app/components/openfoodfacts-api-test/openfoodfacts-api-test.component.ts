@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiOpenfoodfactsService } from 'src/app/services/api-openfoodfacts.service';
+import { Product } from 'src/app/typings';
 
 @Component({
   selector: 'app-openfoodfacts-api-test',
@@ -9,11 +10,7 @@ import { ApiOpenfoodfactsService } from 'src/app/services/api-openfoodfacts.serv
 export class OpenfoodfactsApiTestComponent implements OnInit{
 
   productName?: string;
-  nutriscore?: string;
-  ecoscore?: string;
-  fat_100g?: string;
-  nameProductFound?: string;
-  products: any;
+  products?: Product[];
 
   constructor(private openfoodfactsApiService: ApiOpenfoodfactsService) {}
 
@@ -26,7 +23,6 @@ export class OpenfoodfactsApiTestComponent implements OnInit{
     this.openfoodfactsApiService.getOpenFoodFactsProductByName(this.productName).subscribe((data)=>{
       this.products = data.products;
       console.log(this.products);
-      this.nameProductFound = this.products.product_name_fr;
     })
   }
 }
