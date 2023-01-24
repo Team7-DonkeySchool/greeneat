@@ -1,0 +1,14 @@
+<input type="text" [(ngModel)]="name">
+<br>
+<button type="submit" (click)="onSearchByName()">Chercher informations par nom d'ingrédient</button>
+<br>
+<a href="" routerLink="">Retour accueil</a>
+<div *ngFor="let value of valuesToTreat">
+    <ul>
+        <h3>{{ value.name }}</h3>
+        <li>Equivalent CO2 : {{ value.ratioCo2 }} g de C02 pour 100g</li>
+        <li>Eau consommée : {{ value.ratioH2o }} l d'eau pour 100g</li>
+        <li>Ecoscore : {{ value.ecoscore }}</li>
+    </ul>
+</div>
+

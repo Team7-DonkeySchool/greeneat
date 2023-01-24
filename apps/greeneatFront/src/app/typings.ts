@@ -44,3 +44,14 @@ export interface Product {
         "energy-kcal_100g": number
     },
 }
+
+
+export interface Ingredient2 {
+    id: number,
+    name: string,
+    ratioCo2: number,
+}
+
+export interface RequestedIngredients {
+    "hydra:member": Ingredient2[],
+}
