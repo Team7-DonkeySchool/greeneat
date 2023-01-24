@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { RecipeApiTestComponent } from './components/recipe-api-test/recipe-api-test.component';
 import { OpenfoodfactsApiTestComponent } from './components/openfoodfacts-api-test/openfoodfacts-api-test.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserrecipeComponent } from './components/userrecipe/userrecipe.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
     RecipeApiTestComponent,
     OpenfoodfactsApiTestComponent,
     HomeComponent,
+    UserrecipeComponent,
   ],
   imports: [
     BrowserModule,

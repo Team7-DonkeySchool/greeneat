@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { OpenfoodfactsApiTestComponent } from './components/openfoodfacts-api-test/openfoodfacts-api-test.component';
 import { RecipeApiTestComponent } from './components/recipe-api-test/recipe-api-test.component';
+import { UserrecipeComponent } from './components/userrecipe/userrecipe.component';
 
 const routes: Routes = [
   { 
@@ -16,6 +17,10 @@ const routes: Routes = [
   { 
     path: 'openfoodfacts_ecoscore',
     component: OpenfoodfactsApiTestComponent
+  },
+  {
+    path: 'userrecipe',
+    component: UserrecipeComponent
   }
 ];
 
