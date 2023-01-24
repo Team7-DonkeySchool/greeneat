@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\IngredientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
-#[ApiResource]
+#[ApiResource()]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
 class Ingredient
 {
     #[ORM\Id]
@@ -30,11 +34,11 @@ class Ingredient
     #[ORM\Column(nullable: true)]
     private ?float $nutriscore = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $season_from = null;
+    #[ORM\Column(nullable: true)]
+    private ?string $season_from = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $season_to = null;
+    #[ORM\Column(nullable: true)]
+    private ?string $season_to = null;
 
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientImage::class, orphanRemoval: true)]
     private Collection $ingredientImages;
@@ -100,24 +104,24 @@ class Ingredient
         return $this;
     }
 
-    public function getSeasonFrom(): ?\DateTimeInterface
+    public function getSeasonFrom(): ?string
     {
         return $this->season_from;
     }
 
-    public function setSeasonFrom(?\DateTimeInterface $season_from): self
+    public function setSeasonFrom(?string $season_from): self
     {
         $this->season_from = $season_from;
 
         return $this;
     }
 
-    public function getSeasonTo(): ?\DateTimeInterface
+    public function getSeasonTo(): ?string
     {
         return $this->season_to;
     }
 
-    public function setSeasonTo(?\DateTimeInterface $season_to): self
+    public function setSeasonTo(?string $season_to): self
     {
         $this->season_to = $season_to;
 

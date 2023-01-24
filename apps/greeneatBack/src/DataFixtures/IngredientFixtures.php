@@ -12,18 +12,18 @@ class IngredientFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $data = $this->loadDataFromCSV('src/DataFixtures/CSV/IngredientFixtures2.csv');
+        $data = $this->loadDataFromCSV('src/DataFixtures/CSV/IngredientFixtures.csv');
 
         $i = 0;
 
         foreach ($data as $row) {
             $entity = new Ingredient();
             $entity->setName($row['name']);
-            $entity->setRatioCo2($row['B']);
-            $entity->setRatioH2o($row['C']);
-            $entity->setEcoscore($row['D']);
-            $entity->setSeasonFrom(new DateTime('2022-01-02'));
-            $entity->setSeasonTo(new DateTime('2022-02-02'));
+            $entity->setRatioCo2($row['ratioCo2']);
+            $entity->setRatioH2o($row['ratioH2o']);
+            $entity->setEcoscore($row['ecoscore']);
+            $entity->setSeasonFrom($row['seasonFrom']);
+            $entity->setSeasonTo($row['seasonTo']);
             $manager->persist($entity);
 
             $i++;
