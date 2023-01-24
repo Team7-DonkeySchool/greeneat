@@ -39,6 +39,9 @@ class Ingredient
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientImage::class, orphanRemoval: true)]
     private Collection $ingredientImages;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ecoscore = null;
+
     public function __construct()
     {
         $this->ingredientImages = new ArrayCollection();
@@ -147,6 +150,18 @@ class Ingredient
                 $ingredientImage->setIngredient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEcoscore(): ?string
+    {
+        return $this->ecoscore;
+    }
+
+    public function setEcoscore(?string $ecoscore): self
+    {
+        $this->ecoscore = $ecoscore;
 
         return $this;
     }
