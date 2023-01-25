@@ -23,11 +23,11 @@ class IngredientCrudController extends AbstractCrudController
             TextField::new('name'),
             TextEditorField::new('ratio_co2'),
             TextEditorField::new('ratio_h2o'),
-            TextEditorField::new('nutriscore'),
-            TextEditorField::new('season_from'),
-            TextEditorField::new('season_to'),
+            // TextEditorField::new('nutriscore'),
+            // TextEditorField::new('season_from'),
+            // TextEditorField::new('season_to'),
             TextEditorField::new('ecoscore'),
-            TextEditorField::new('ingredientImages'),
+            // TextEditorField::new('ingredientImages'),
         ];
     }
     

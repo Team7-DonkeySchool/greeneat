@@ -29,5 +29,15 @@ class CategoryFixtures extends Fixture
         $drinks->setName('drinks');
         $manager->persist($drinks);
         $manager->flush();
+
+        $pastry = new Category();
+        $pastry->setName('pastries');
+        $manager->persist($pastry);
+        $manager->flush();
+
+        $apetizer = new Category();
+        $apetizer->setName('apetizers');
+        $manager->persist($apetizer);
+        $manager->flush();
     }
 }
