@@ -24,26 +24,35 @@ export class InputIngredientComponent implements OnInit {
 
   onSubmitIngredient(){
     let greenScoreTotal = 0;
+    let ponderateGreenScore = 0;
 
     this.recipesIngredient = this.recipe?.split("\n");
 
+    let recipesIngredientFiltred: string[] = [];
+
     this.recipesIngredient?.forEach((element)=>{
+      if (element !== "") recipesIngredientFiltred.push(element); 
+    });
+
+    recipesIngredientFiltred.forEach((element)=>{
+      
       this.infoFromRecipe = this.regexIngredient.getInfoFromRecipeRequestLine(element);
 
+      /* ponderation of greenScore depending on the grams / quantity */
+
+      if (!this.infoFromRecipe) return;
+      switch (this.infoFromRecipe[0]) {
+        case('grams'):
+          ponderateGreenScore = 1 + 0.01 * parseInt(this.infoFromRecipe[1])/100;
+      }
+
       this.ingredientService.getIngredientsByName(this.infoFromRecipe[2])
-        .pipe(
-          mergeMap((data: any)=>{
-            this.ingredientInfosRequested = data["hydra:member"][0];
-            return of(this.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o))
-              .pipe(map(data => greenScoreTotal += data));
-          })
-        )
         .subscribe((data: any)=>{
-          greenScoreTotal = data;
-          console.log(greenScoreTotal);
+          this.ingredientInfosRequested = data["hydra:member"][0];
+          greenScoreTotal += this.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScore;
 
           if (!this.recipesIngredient) return;
-          this.greenScore = greenScoreTotal / this.recipesIngredient.length;
+          this.greenScore = greenScoreTotal / recipesIngredientFiltred.length;
         });
     });
   }
