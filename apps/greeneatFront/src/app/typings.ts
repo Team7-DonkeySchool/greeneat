@@ -50,6 +50,8 @@ export interface Ingredient2 {
     id: number,
     name: string,
     ratioCo2: number,
+    ratioH2o: number,
+    ecoscore: string,
 }
 
 export interface RequestedIngredients {
