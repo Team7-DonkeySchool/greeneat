@@ -1,6 +1,6 @@
 name,ratioCo2,ratioH2o,ecoscore,seasonFrom,seasonTo
 sucre,0,20,B,01-01,12-31
-sucre de canne,0,20,B,01-01,12-31
+sucre canne,0,20,B,01-01,12-31
 carotte,0.04,20,B,09-01,03-01
 tomate,0.05,21,A,06-01,09-30
 melon,0.09,22,B,06-01,09-30
