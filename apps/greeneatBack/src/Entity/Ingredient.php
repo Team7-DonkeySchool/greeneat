@@ -169,4 +169,5 @@ class Ingredient
 
         return $this;
     }
+
 }

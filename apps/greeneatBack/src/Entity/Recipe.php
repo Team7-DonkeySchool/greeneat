@@ -28,9 +28,14 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $categoryRecipe = null;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'recipes')]
+    private Collection $Tag;
+
+
     public function __construct()
     {
         $this->recipeImages = new ArrayCollection();
+        $this->Tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,4 +98,29 @@ class Recipe
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTag(): Collection
+    {
+        return $this->Tag;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->Tag->contains($tag)) {
+            $this->Tag->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->Tag->removeElement($tag);
+
+        return $this;
+    }
+
 }
