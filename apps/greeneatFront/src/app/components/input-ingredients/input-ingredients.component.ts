@@ -51,6 +51,9 @@ export class InputIngredientsComponent {
 
       this.infoFromRecipe = this.regexIngredient.getInfoFromRecipeRequestLine(element);
 
+      console.log('recipe>>>', this.infoFromRecipe );
+
+
       /* creating an observable returning the name of the ingredient to deal with asynchronism of get function */
 
       let nameOfIngredient = of(this.infoFromRecipe[2]);
