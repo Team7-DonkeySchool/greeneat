@@ -70,7 +70,7 @@ export class InputIngredientsComponent {
 
             if(!ponderateGreenScoreByElement) return;
             this.greenScoreTotal += this.greenScoreService.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
-            this.greenScore = this.greenScoreTotal / recipesIngredientFiltred.length;
+            this.greenScore = Math.round((this.greenScoreTotal / recipesIngredientFiltred.length));
           });
       })
     });
