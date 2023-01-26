@@ -20,12 +20,13 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeImage::class)]
     private Collection $recipeImages;
+
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $categoryRecipe = null;
 
     public function __construct()
     {
@@ -49,17 +50,7 @@ class Recipe
         return $this;
     }
 
-    public function getCategory(): ?category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, RecipeImage>
@@ -87,6 +78,18 @@ class Recipe
                 $recipeImage->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategoryRecipe(): ?Category
+    {
+        return $this->categoryRecipe;
+    }
+
+    public function setCategoryRecipe(?Category $categoryRecipe): self
+    {
+        $this->categoryRecipe = $categoryRecipe;
 
         return $this;
     }
