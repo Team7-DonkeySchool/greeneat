@@ -9,6 +9,8 @@ import { RecipeApiTestComponent } from './components/recipe-api-test/recipe-api-
 import { OpenfoodfactsApiTestComponent } from './components/openfoodfacts-api-test/openfoodfacts-api-test.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngredientsTestsComponent } from './components/ingredients-tests/ingredients-tests.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { IngredientsTestsComponent } from './components/ingredients-tests/ingred
     OpenfoodfactsApiTestComponent,
     HomeComponent,
     IngredientsTestsComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

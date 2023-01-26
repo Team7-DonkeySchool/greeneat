@@ -11,6 +11,7 @@
     "explorer.fileNesting.patterns": {
         "*.json": "${capture}.lock",
         "*.override.yml": "${capture}.yml",
-        "*.env": "composer.json, docker-compose.override.yml, phpunit.xml.dist, symfony.lock"
+        "*.env": "composer.json, docker-compose.override.yml, phpunit.xml.dist, symfony.lock",
+        "angular.json": "package.json, tsconfig.json, *.editorconfig"
     }
 }
