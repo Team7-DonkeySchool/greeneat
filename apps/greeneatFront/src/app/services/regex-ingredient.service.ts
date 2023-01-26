@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class RegexIngredientService {
 
   regExpGrams = /\d+[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
-  regExpGramWord = /[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
+  regExpGramWord = /^[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
   regExpPincee = /pinc[é]?[è]?[e]?[e]?[s]?/g;
   regExpSpoon = /cuill[e]?[è]?[é]?[r][e]?[e]?[s]?/g;
   regExpSoup = /soup[e]?/g;
@@ -19,10 +19,10 @@ export class RegexIngredientService {
   regExpD2 = /[d][']?\s*\w*/g;
   regExpD2Rest = /(?![d]['])\w*/g;   /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
   regExpExceptGramms = /(?!\d+?)(?![grammes])(?![d][e])(?!d')\w*/g;
-  regExpKilos = /\d+kilo[s?]|kg|kgs|Kg|KG|kilogra[m]?[e]?[s]?/g;
-  regExpKiloWord = /kilo[s?]|kg|kgs|Kg|KG|kilogra[m]?[e]?[s]?/g;
-  regExpLitres = /\d+litre[s?]|l|L/g;
-  regExpLitreWord = /litre[s?]|l|L/g;
+  regExpKilos = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
+  regExpKiloWord = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
+  regExpLitres = /\d+[l][i]?[t]?[r]?[e]?[s]?/g;
+  regExpLitreWord = /[l][i]?[t]?[r]?[e]?[s]?/g;
 
   constructor() { }
 
@@ -63,7 +63,7 @@ export class RegexIngredientService {
     });
     
     let infoFromRecipe: string[] = [];
-    
+
     recipeArray.forEach((element: any, index: any) => {
 
         if (element.match(this.regExpGrams)) {
@@ -81,20 +81,10 @@ export class RegexIngredientService {
         } else if (element.match(this.regExpQuantity)) {
 
           if (recipeArray[index + 1].match(this.regExpGramWord)) {
-            infoFromRecipe[0] = 'grams'; 
+            infoFromRecipe[0] = 'grams';
             this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
 
-          }
-console.log('youhouuuu');
-          if (recipeArray[index + 1].match(this.regExpKiloWord)) {
-            infoFromRecipe[0] = 'kilos'; 
-            console.log('youpi');
-            console.log(element.match(this.regExpQuantity).toString());
-            this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
-
-          }
-
-          if (recipeArray[1].match(this.regExpKiloWord)) {
+          } else if (recipeArray[index + 1].match(this.regExpKiloWord)) {
             infoFromRecipe[0] = 'kilos';
             this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
 
@@ -131,7 +121,8 @@ console.log('youhouuuu');
           } 
         };
     });
-    
+    console.log('result', infoFromRecipe);
+
     return infoFromRecipe;
   }
 }
