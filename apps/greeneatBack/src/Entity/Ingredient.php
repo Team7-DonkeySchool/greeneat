@@ -47,12 +47,17 @@ class Ingredient
     private ?string $ecoscore = null;
 
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientRecipe::class)]
-    private Collection $ingredientRecipes;
+    private Collection $ingredientRecipe;
 
     public function __construct()
     {
         $this->ingredientImages = new ArrayCollection();
-        $this->ingredientRecipes = new ArrayCollection();
+        $this->ingredientRecipe = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -179,13 +184,13 @@ class Ingredient
      */
     public function getIngredientRecipes(): Collection
     {
-        return $this->ingredientRecipes;
+        return $this->ingredientRecipe;
     }
 
     public function addIngredientRecipe(IngredientRecipe $ingredientRecipe): self
     {
-        if (!$this->ingredientRecipes->contains($ingredientRecipe)) {
-            $this->ingredientRecipes->add($ingredientRecipe);
+        if (!$this->ingredientRecipe->contains($ingredientRecipe)) {
+            $this->ingredientRecipe->add($ingredientRecipe);
             $ingredientRecipe->setIngredient($this);
         }
 
@@ -194,7 +199,7 @@ class Ingredient
 
     public function removeIngredientRecipe(IngredientRecipe $ingredientRecipe): self
     {
-        if ($this->ingredientRecipes->removeElement($ingredientRecipe)) {
+        if ($this->ingredientRecipe->removeElement($ingredientRecipe)) {
             // set the owning side to null (unless already changed)
             if ($ingredientRecipe->getIngredient() === $this) {
                 $ingredientRecipe->setIngredient(null);

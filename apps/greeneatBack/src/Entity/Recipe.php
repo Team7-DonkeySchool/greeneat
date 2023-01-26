@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
@@ -32,14 +33,17 @@ class Recipe
     private Collection $Tag;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: IngredientRecipe::class)]
-    private Collection $ingredientRecipes;
+    private Collection $ingredientRecipe;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
 
     public function __construct()
     {
         $this->recipeImages = new ArrayCollection();
         $this->Tag = new ArrayCollection();
-        $this->ingredientRecipes = new ArrayCollection();
+        $this->ingredientRecipe = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,13 +136,13 @@ class Recipe
      */
     public function getIngredientRecipes(): Collection
     {
-        return $this->ingredientRecipes;
+        return $this->ingredientRecipe;
     }
 
     public function addIngredientRecipe(IngredientRecipe $ingredientRecipe): self
     {
-        if (!$this->ingredientRecipes->contains($ingredientRecipe)) {
-            $this->ingredientRecipes->add($ingredientRecipe);
+        if (!$this->ingredientRecipe->contains($ingredientRecipe)) {
+            $this->ingredientRecipe->add($ingredientRecipe);
             $ingredientRecipe->setRecipe($this);
         }
 
@@ -147,12 +151,24 @@ class Recipe
 
     public function removeIngredientRecipe(IngredientRecipe $ingredientRecipe): self
     {
-        if ($this->ingredientRecipes->removeElement($ingredientRecipe)) {
+        if ($this->ingredientRecipe->removeElement($ingredientRecipe)) {
             // set the owning side to null (unless already changed)
             if ($ingredientRecipe->getRecipe() === $this) {
                 $ingredientRecipe->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
