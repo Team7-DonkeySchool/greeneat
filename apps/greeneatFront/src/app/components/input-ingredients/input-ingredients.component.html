@@ -2,23 +2,16 @@
     <div class="text-recipes d-flex justify-content-center">
         <div class="w-90">
             <label for="textarea1" class="form-label"></label>
-            <textarea [(ngModel)]="name" class="form-control" id="textarea1" rows="7"></textarea>
+            <textarea [(ngModel)]="recipe" class="form-control" id="textarea1" rows="7" placeholder="Exemple : 200 g de sucre"></textarea>
             <div class="anecdote py-5">
                 <h4>Le savais-tu ?</h4>
                 <span>Les manchots mâles draguent en offrant aux femelles des cailloux.</span>
             </div>
+            <h1 *ngIf="isGreenScoreVisible">Votre GreenScore : {{ greenScore }}</h1>
         </div>
     </div>
     <div class="greenButton">
-    <button (click)="onSearchByName()" class="btn-calcul-text bg-green justify-content-center">Calcule ton Green</button><br>
+    <button (click)="onCalculateGreeScore()" class="btn-calcul-text bg-green justify-content-center">Calcule ton Green</button><br>
     </div>
 
-    <div *ngFor="let value of valuesToTreat">
-        <ul>
-            <h3>{{ value.name }}</h3>
-            <li>Equivalent CO2 : {{ value.ratioCo2 }} g de C02 pour 100g</li>
-            <li>Eau consommée : {{ value.ratioH2o }} l d'eau pour 100g</li>
-            <li>Ecoscore : {{ value.ecoscore }}</li>
-        </ul>
-    </div>
 </div>
