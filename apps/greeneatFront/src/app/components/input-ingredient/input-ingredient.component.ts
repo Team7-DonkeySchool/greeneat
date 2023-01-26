@@ -15,6 +15,7 @@ export class InputIngredientComponent implements OnInit {
   infoFromRecipe?: string[];
   ingredientInfosRequested?: any;
   greenScore?: number;
+  greenScoreTotal: number = 0;
 
   constructor (private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {}
 
@@ -23,8 +24,9 @@ export class InputIngredientComponent implements OnInit {
   }
 
   onSubmitIngredient(){
-    let greenScoreTotal = 0;
     let ponderateGreenScore = 0;
+    this.greenScore = 0;
+    this.greenScoreTotal = 0;
 
     this.recipesIngredient = this.recipe?.split("\n");
 
@@ -43,18 +45,50 @@ export class InputIngredientComponent implements OnInit {
       if (!this.infoFromRecipe) return;
       switch (this.infoFromRecipe[0]) {
         case('grams'):
-          ponderateGreenScore = 1 + 0.01 * parseInt(this.infoFromRecipe[1])/100;
+          if (parseInt(this.infoFromRecipe[1])>100) {
+            ponderateGreenScore = 1 + 0.01 * Math.exp(parseInt(this.infoFromRecipe[1])/100);
+          } else {
+            ponderateGreenScore = 1 - 0.01 * (1 - parseInt(this.infoFromRecipe[1])/100);
+          }
+          break;
+        case('quantity'):
+          break;
+        case('soupSpoon'):
+          if (parseInt(this.infoFromRecipe[1]) * 15 >100) { /* a soup spoon weight 15g */
+            ponderateGreenScore = 1 + 0.01 * parseInt(this.infoFromRecipe[1]) * 15/100;
+          } else {
+            ponderateGreenScore = 1 - 0.01 * (1 - parseInt(this.infoFromRecipe[1]) * 15/100);
+          }
+          break;
+        case('coffeeSpoon'):
+          if (parseInt(this.infoFromRecipe[1]) * 5 >100) { /* a coffee spoon weight 5g */
+            ponderateGreenScore = 1 + 0.01 * parseInt(this.infoFromRecipe[1]) * 5/100;
+          } else {
+            ponderateGreenScore = 1 - 0.01 * (1 - parseInt(this.infoFromRecipe[1]) * 5/100);
+          }
+          break;
+        case('pincee'):
+          if (parseInt(this.infoFromRecipe[1]) * 0.5 >100) { /* a coffee spoon weight 0.5g */
+            ponderateGreenScore = 1 + 0.01 * parseInt(this.infoFromRecipe[1]) * 0.5/100;
+          } else {
+            ponderateGreenScore = 1 - 0.01 * (1 - parseInt(this.infoFromRecipe[1]) * 0.5/100);
+          }
+          break;
       }
 
       this.ingredientService.getIngredientsByName(this.infoFromRecipe[2])
         .subscribe((data: any)=>{
           this.ingredientInfosRequested = data["hydra:member"][0];
-          greenScoreTotal += this.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScore;
-
-          if (!this.recipesIngredient) return;
-          this.greenScore = greenScoreTotal / recipesIngredientFiltred.length;
+          console.log('ingredients', this.ingredientInfosRequested);
+          this.greenScoreTotal += this.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScore;
+          this.greenScore = this.greenScoreTotal / recipesIngredientFiltred.length;
+          console.log('green score', this.greenScore);
+          console.log('green score total', this.greenScoreTotal);
+          console.log('number of ingredients', recipesIngredientFiltred.length);
         });
     });
+    this.greenScoreTotal = 0;
+
   }
 
   /* function to calculate the green score */
