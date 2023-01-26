@@ -1,1 +1,92 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+:root{
+    --primary: #32C88C;
+    --secondary: #BFFCFB;
+    --tertiary: #ECF0F1;
+    --quaternary : white;
+    --bs-btn-bg: var(--primary);
+    --border-radius-l: 30px;
+    --border-radius-m: 20px;
+    --border-radius-s: 10px;
+
+}
+
+h3{
+    padding-left: 0% !important;
+}
+
+a{
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.btn, .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: var(--primary) !important;
+    background: var(--primary);
+    border-color: var(--primary) !important;
+}
+
+.bg-green{
+    background: var(--primary);
+}
+
+.full-bg-dark{
+    background: black;
+    padding: 5%;
+}
+
+.text-green{
+    color: var(--primary);
+}
+
+.w-90{
+    width: 90% !important;
+}
+
+.border-radius-left{
+    border-top-left-radius: var(--border-radius-l);
+ }
+ 
+ .border-radius-right{
+     border-top-right-radius:var(--border-radius-l);
+ }
+
+
+
+ ::-webkit-scrollbar-track
+ {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+     background-color: var(--secondary);
+     
+ }
+ 
+ ::-webkit-scrollbar
+ {
+     width: 10px;
+     background-color: var(--secondary);
+     
+ }
+ 
+ ::-webkit-scrollbar-thumb
+ {
+    border-radius: 10px;
+     background-color: var(--primary);	
+     background-image: -webkit-linear-gradient(45deg,
+                                               rgba(255, 255, 255, .2) 25%,
+                                               transparent 25%,
+                                               transparent 50%,
+                                               rgba(255, 255, 255, .2) 50%,
+                                               rgba(255, 255, 255, .2) 75%,
+                                               transparent 75%,
+                                               transparent)
+ }
+
+
+
+
+
+
