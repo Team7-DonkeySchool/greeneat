@@ -11,6 +11,8 @@ import { HomeComponent } from './components/home/home.component';
 import { IngredientsTestsComponent } from './components/ingredients-tests/ingredients-tests.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InputIngredientsComponent } from './components/input-ingredients/input-ingredients.component';
+import { SeasonalRecipesComponent } from './components/seasonal-recipes/seasonal-recipes.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     IngredientsTestsComponent,
     NavbarComponent,
+    InputIngredientsComponent,
+    SeasonalRecipesComponent,
   ],
   imports: [
     BrowserModule,
