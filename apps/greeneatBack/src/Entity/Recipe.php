@@ -28,7 +28,7 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $categoryRecipe = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'recipes')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'recipes', cascade: ['persist'])]
     private Collection $Tag;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: IngredientRecipe::class)]

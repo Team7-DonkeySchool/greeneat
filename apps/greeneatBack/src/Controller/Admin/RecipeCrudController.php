@@ -3,8 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
+use App\Form\TagType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -23,6 +26,8 @@ class RecipeCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('name'),
             AssociationField::new('categoryRecipe'),
+            CollectionField::new('tag')
+                ->setEntryType(TagType::class)
             // TextEditorField::new('category_id'),
         ];
     }
