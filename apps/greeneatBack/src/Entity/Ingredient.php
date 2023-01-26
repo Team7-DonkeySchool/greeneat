@@ -46,9 +46,13 @@ class Ingredient
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ecoscore = null;
 
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientRecipe::class)]
+    private Collection $ingredientRecipes;
+
     public function __construct()
     {
         $this->ingredientImages = new ArrayCollection();
+        $this->ingredientRecipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,4 +173,35 @@ class Ingredient
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, IngredientRecipe>
+     */
+    public function getIngredientRecipes(): Collection
+    {
+        return $this->ingredientRecipes;
+    }
+
+    public function addIngredientRecipe(IngredientRecipe $ingredientRecipe): self
+    {
+        if (!$this->ingredientRecipes->contains($ingredientRecipe)) {
+            $this->ingredientRecipes->add($ingredientRecipe);
+            $ingredientRecipe->setIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredientRecipe(IngredientRecipe $ingredientRecipe): self
+    {
+        if ($this->ingredientRecipes->removeElement($ingredientRecipe)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredientRecipe->getIngredient() === $this) {
+                $ingredientRecipe->setIngredient(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
