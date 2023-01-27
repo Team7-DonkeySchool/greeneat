@@ -34,4 +34,14 @@ export class ApiSpoonacularService extends ApiService {
       .get<ArrayRecipes>(`${environment.baseUrlSpoonacular}/search`, {params: queryParams});
   }
 
+  getApiSpoonacular(idRecipe: number): Observable<Recipe[]> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("apiKey", environment.spoonacularApiKey);
+    queryParams = queryParams.append("number", this.quantityRecipesReceived);
+    queryParams = queryParams.append("number", idRecipe);
+
+    return this.http
+      .get<Recipe[]>(`${environment.randomRecipeSpoonacular}/${idRecipe}`, {params: queryParams});
+  }
+
 }
