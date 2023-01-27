@@ -46,16 +46,16 @@ class Ingredient
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ecoscore = null;
 
-    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientRecipe::class)]
-    private Collection $ingredientRecipe;
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: LinkedIngredients::class)]
+    private Collection $LinkedIngredients;
 
     #[ORM\Column(nullable: true)]
     private ?float $weightPerUnity = null;
 
     public function __construct()
     {
-        $this->ingredientImages = new ArrayCollection();
-        $this->ingredientRecipe = new ArrayCollection();
+        $this->LinkedIngredients = new ArrayCollection();
+        $this->LinkedIngredients = new ArrayCollection();
     }
 
     public function __toString()
@@ -183,29 +183,29 @@ class Ingredient
     }
 
     /**
-     * @return Collection<int, IngredientRecipe>
+     * @return Collection<int, LinkedIngredients>
      */
-    public function getIngredientRecipes(): Collection
+    public function getLinkedIngredients(): Collection
     {
-        return $this->ingredientRecipe;
+        return $this->LinkedIngredients;
     }
 
-    public function addIngredientRecipe(IngredientRecipe $ingredientRecipe): self
+    public function addLinkedIngredients(LinkedIngredients $LinkedIngredient): self
     {
-        if (!$this->ingredientRecipe->contains($ingredientRecipe)) {
-            $this->ingredientRecipe->add($ingredientRecipe);
-            $ingredientRecipe->setIngredient($this);
+        if (!$this->LinkedIngredients->contains($LinkedIngredient)) {
+            $this->LinkedIngredients->add($LinkedIngredient);
+            $LinkedIngredient->setIngredient($this);
         }
 
         return $this;
     }
 
-    public function removeIngredientRecipe(IngredientRecipe $ingredientRecipe): self
+    public function removeLinkedIngredients(LinkedIngredients $LinkedIngredients): self
     {
-        if ($this->ingredientRecipe->removeElement($ingredientRecipe)) {
+        if ($this->LinkedIngredients->removeElement($LinkedIngredients)) {
             // set the owning side to null (unless already changed)
-            if ($ingredientRecipe->getIngredient() === $this) {
-                $ingredientRecipe->setIngredient(null);
+            if ($LinkedIngredients->getIngredient() === $this) {
+                $LinkedIngredients->setIngredient(null);
             }
         }
 
