@@ -5,6 +5,10 @@ export interface Recipe {
     extendedIngredients: Ingredient[],
 }
 
+export interface RecipeArray {
+    recipes: Recipe[],
+}
+
 export interface Ingredient {
     id: number,
     name: string,

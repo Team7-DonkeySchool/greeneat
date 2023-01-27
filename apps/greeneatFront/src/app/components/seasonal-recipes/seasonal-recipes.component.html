@@ -7,52 +7,53 @@
             <span>Here is a seasonal recipe</span>
         </div>
 
-        <div class="row row-cols-2 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="https://baconmockup.com/200/200" class="card-img-top"
-                            alt="https://baconmockup.com/200/200">
-
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">30 Minutes/tags</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="https://baconmockup.com/200/200" class="card-img-top"
-                            alt="https://baconmockup.com/200/200">
-
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">30 Minutes/tags</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="https://baconmockup.com/200/200" class="card-img-top"
-                            alt="https://baconmockup.com/200/200">
-
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">30 Minutes/tags</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="https://baconmockup.com/200/200" class="card-img-top"
-                            alt="https://baconmockup.com/200/200">
-
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">30 Minutes/tags</p>
-                    </div>
-                </div>
-            </div>
+        <div *ngFor="let recipe of recipeArray; let i = index">
+                <img [src]="recipe.image">
+                <p>{{ recipe.title }}</p>
         </div>
+
+        <!-- <div class="row row-cols-2 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://baconmockup.com/200/200" class="card-img-top"
+                            alt="https://baconmockup.com/200/200">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">30 Minutes/tags</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://baconmockup.com/200/200" class="card-img-top"
+                            alt="https://baconmockup.com/200/200">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">30 Minutes/tags</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://baconmockup.com/200/200" class="card-img-top"
+                            alt="https://baconmockup.com/200/200">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">30 Minutes/tags</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://baconmockup.com/200/200" class="card-img-top"
+                            alt="https://baconmockup.com/200/200">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">30 Minutes/tags</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
 
     </section>
 
