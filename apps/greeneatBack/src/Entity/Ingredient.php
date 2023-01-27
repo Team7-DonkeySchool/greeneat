@@ -49,6 +49,9 @@ class Ingredient
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientRecipe::class)]
     private Collection $ingredientRecipe;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $mass_per_unit = null;
+
     public function __construct()
     {
         $this->ingredientImages = new ArrayCollection();
@@ -205,6 +208,18 @@ class Ingredient
                 $ingredientRecipe->setIngredient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMassPerUnit(): ?int
+    {
+        return $this->mass_per_unit;
+    }
+
+    public function setMassPerUnit(?int $mass_per_unit): self
+    {
+        $this->mass_per_unit = $mass_per_unit;
 
         return $this;
     }
