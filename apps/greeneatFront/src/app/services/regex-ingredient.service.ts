@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class RegexIngredientService {
 
   regExpGrams = /\d+[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
-  regExpGramWord = /[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
+  regExpGramWord = /^[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
   regExpPincee = /pinc[é]?[è]?[e]?[e]?[s]?/g;
   regExpSpoon = /cuill[e]?[è]?[é]?[r][e]?[e]?[s]?/g;
   regExpSoup = /soup[e]?/g;
@@ -17,14 +17,16 @@ export class RegexIngredientService {
   regExpDe = /de/g;
   regExpD1 = /[d][']?\s+/g;
   regExpD2 = /[d][']?\s*\w*/g;
-  regExpD2Rest = /(?![d]['])\w*/g;
+  regExpD2Rest = /(?![d]['])\w*/g;  /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
   regExpExceptGramms = /(?!\d+?)(?![grammes])(?![d][e])(?!d')\w*/g;
-  regExpKilos = /\d+kilo[s?]|kg|Kg|kilogra[m]?[e]?[s]?/g;
-  regExpKiloWord = /kilo[s?]|kg|Kg|kilogra[m]?[e]?[s]?/g;
-  regExpLitres = /\d+litre[s?]|l|L/g;
-  regExpLitreWord = /litre[s?]|l|L/g;
+  regExpKilos = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
+  regExpKiloWord = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
+  regExpLitres = /\d+[l][i]?[t]?[r]?[e]?[s]?/g;
+  regExpLitreWord = /[l][i]?[t]?[r]?[e]?[s]?/g;
 
   constructor() { }
+
+  /* verifying if it is followed by "de", "d'" */
 
   pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray: any, infoFromRecipe: string[], element: any, index: number, place: number) {
     if (!element || !recipeArray) return;
@@ -33,13 +35,15 @@ export class RegexIngredientService {
     } else if (recipeArray[index + place].match(this.regExpD1)) {
       infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place + 1));
     } else if (recipeArray[index + place].match(this.regExpD2)) {
-      infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(recipeArray[index + place].match(this.regExpD2Rest)[1]);
+      infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place).match(this.regExpD2Rest)[1]);
     } else {
       infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place));
     }
   }
 
-  getEndOfArrayAsSentence(array: string[], place: number) {
+  /* get the ingredients composed of several words such as "sucre de canne" */
+
+  getEndOfArrayAsSentence(array: string[], place: number): any {
     let array2 = [];
     for (let i = place; i < array.length; i++) {
       array2.push(array[i]);
@@ -47,6 +51,8 @@ export class RegexIngredientService {
     return array2.join(' ');
   }
     
+  /* applying regex to the recipe line to get infos" */
+
   getInfoFromRecipeRequestLine(recipeLine: any) {
     
     let recipeArrayTotal = recipeLine.split(" ");
@@ -57,11 +63,12 @@ export class RegexIngredientService {
     });
     
     let infoFromRecipe: string[] = [];
-    
+
     recipeArray.forEach((element: any, index: any) => {
+
         if (element.match(this.regExpGrams)) {
-            infoFromRecipe[0] = 'grams'; /* the first key of the array is the type of info */
-            this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 1);
+          infoFromRecipe[0] = 'grams'; /* the first key of the array is the type of info */
+          this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 1);
     
         } else if (element.match(this.regExpKilos)) {
           infoFromRecipe[0] = 'kilos'; 
@@ -74,9 +81,9 @@ export class RegexIngredientService {
         } else if (element.match(this.regExpQuantity)) {
 
           if (recipeArray[index + 1].match(this.regExpGramWord)) {
-              infoFromRecipe[0] = 'grams';
-              this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
-  
+            infoFromRecipe[0] = 'grams';
+            this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
+
           } else if (recipeArray[index + 1].match(this.regExpKiloWord)) {
             infoFromRecipe[0] = 'kilos';
             this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
@@ -86,19 +93,20 @@ export class RegexIngredientService {
             this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
 
           } else if (recipeArray[index + 1].match(this.regExpSpoon)) {
+
               if (recipeArray[index + 3].match(this.regExpSoup)) {
                   infoFromRecipe[0] = 'soupSpoon';
                   this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 4);
-  
+
               } else if (recipeArray[index + 3].match(this.regExpCoffee)) {
                   infoFromRecipe[0] = 'coffeeSpoon';
                   this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 4);
-  
+
               }
           } else if (recipeArray[index + 1].match(this.regExpSoupSpoon)) {
               infoFromRecipe[0] = 'soupSpoon';
               this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
-  
+
           }  else if (recipeArray[index + 1].match(this.regExpCoffeeSpoon)) {
               infoFromRecipe[0] = 'coffeeSpoon';
               this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
@@ -113,7 +121,7 @@ export class RegexIngredientService {
           } 
         };
     });
-    
+
     return infoFromRecipe;
   }
 }
