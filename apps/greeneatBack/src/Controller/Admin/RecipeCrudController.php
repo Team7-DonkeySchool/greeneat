@@ -30,8 +30,8 @@ class RecipeCrudController extends AbstractCrudController
             AssociationField::new('categoryRecipe'),
             CollectionField::new('tag')
                 ->setEntryType(TagType::class),
-            CollectionField::new('ingredientRecipe')
-                ->setEntryType(IngredientType::class),
+            // CollectionField::new('ingredientRecipe')
+            //     ->setEntryType(IngredientType::class),
             TextEditorField::new('description'),
         ];
     }
