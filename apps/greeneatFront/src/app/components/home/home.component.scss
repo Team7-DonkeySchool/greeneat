@@ -36,41 +36,32 @@ img.img-category {
 }
 
 .card-title.category {
-font-size: 80%;
+    font-size: 80%;
 }
 
 
-
-//seasonal ###############################################################
 .seasonal-title {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20% 0% 10% 0%;
 }
 
-.card {
-    border: 0px;
-    --bs-card-border-color: 0px !important;
 
+
+
+
+
+//score ###############################################################
+
+.score-co2 {
+    background-color: #5e6167;
 }
 
-.card-body {
-    padding: 5%;
-    background: var(--secondary);
-    border-radius: var(--border-radius-s);
-    background: linear-gradient(0deg, var(--secondary) 0%, rgba(50, 200, 140, 0.010) 100%);
-    transition: all 0.5s ease-in-out;
+.score-h2o {
+    background-color: #007fff;
 }
 
-.card-body:hover {
-    scale: 1.1;
-    background: var(--primary);
-    background: linear-gradient(0deg, var(--primary) 0%, rgba(50, 200, 140, 0.010) 100%);
-}
-
-.card img {
-    border-radius: var(--border-radius-s);
-    margin-bottom: 5%;
+.score-nutri {
+    background-color: #9683ec;
 }

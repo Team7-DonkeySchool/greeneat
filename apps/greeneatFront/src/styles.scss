@@ -12,11 +12,21 @@
     --border-radius-l: 30px;
     --border-radius-m: 20px;
     --border-radius-s: 10px;
+    --primary-opa: #32c88cda;
+    --secondary-opa: #bffcfbde;
 
+}
+
+.card{
+    --bs-card-bg: rgba(0, 0, 0, 0) !important;
 }
 
 h3{
     padding-left: 0% !important;
+}
+
+h6{
+    margin-bottom: 0% !important;
 }
 
 a{
@@ -24,19 +34,35 @@ a{
     color: black !important;
 }
 
-.btn, .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+.btn, .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited, button {
     background-color: var(--primary) !important;
     background: var(--primary);
     border-color: var(--primary) !important;
+    border: 0px !important;
 }
 
 .bg-green{
-    background: var(--primary);
+background: var(--primary);
+
 }
+
+.bg-gray{
+    background: var(--tertiary);
+}
+
+body{
+    background: black;
+}
+.background{
+    background-color: white;
+    background-image: url("assets/img/heatl.svg");
+    background-size: 30%;
+}
+
 
 .full-bg-dark{
     background: black;
-    padding: 5%;
+
 }
 
 .text-green{
@@ -84,6 +110,22 @@ a{
                                                transparent 75%,
                                                transparent)
  }
+
+
+ .py-55{
+    padding-bottom: 3000px;
+ }
+
+
+
+
+
+ 
+
+
+
+
+
 
 
 
