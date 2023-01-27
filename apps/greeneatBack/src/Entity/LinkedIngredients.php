@@ -36,6 +36,11 @@ class LinkedIngredients
     #[ORM\Column(nullable:true)]
     private ?string $unit = null;
 
+    public function __toString()
+    {
+        return $this->ingredient->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

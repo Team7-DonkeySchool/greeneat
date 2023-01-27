@@ -4,7 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
 use App\Entity\Ingredient;
-use App\Form\IngredientType;
+// use App\Form\IngredientType;
+use App\Form\LinkedIngredientType;
 use App\Form\TagType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -30,8 +31,8 @@ class RecipeCrudController extends AbstractCrudController
             AssociationField::new('categoryRecipe'),
             CollectionField::new('tag')
                 ->setEntryType(TagType::class),
-            CollectionField::new('LinkedIngredients')
-                ->setEntryType(IngredientType::class),
+            CollectionField::new('linkedIngredients')
+                ->setEntryType(LinkedIngredientType::class),
             TextEditorField::new('description'),
         ];
     }
