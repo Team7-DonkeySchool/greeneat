@@ -51,6 +51,9 @@ export class InputIngredientsComponent {
 
       this.infoFromRecipe = this.regexIngredient.getInfoFromRecipeRequestLine(element);
 
+      console.log('recipe>>>', this.infoFromRecipe );
+
+
       /* creating an observable returning the name of the ingredient to deal with asynchronism of get function */
 
       let nameOfIngredient = of(this.infoFromRecipe[2]);
@@ -70,7 +73,7 @@ export class InputIngredientsComponent {
 
             if(!ponderateGreenScoreByElement) return;
             this.greenScoreTotal += this.greenScoreService.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
-            this.greenScore = this.greenScoreTotal / recipesIngredientFiltred.length;
+            this.greenScore = Math.round((this.greenScoreTotal / recipesIngredientFiltred.length));
           });
       })
     });
