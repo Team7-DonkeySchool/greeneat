@@ -45,6 +45,13 @@ export class GreenScoreService {
           ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1])/100);
         }
         break;
+      case('quantity'):
+        if (parseInt(infoFromRecipe[1]) > 100) {
+          ponderateGreenScore = 1 + 0.01 * Math.pow(parseInt(infoFromRecipe[1])/100, 1.5);
+        } else {
+          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1])/100);
+        }
+        break;
       case('kilos'):
         if (parseInt(infoFromRecipe[1]) * 1000 > 100) {
           ponderateGreenScore = 1 + 0.01 * Math.pow(parseInt(infoFromRecipe[1]) * 1000/100, 1.5);
@@ -59,24 +66,22 @@ export class GreenScoreService {
           ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 1000/100);
         }
         break;
-      case('quantity'):
-        break;
       case('soupSpoon'):
-        if (parseInt(infoFromRecipe[1]) * 15 > 100) { /* a soup spoon weight 15g */
+        if (parseInt(infoFromRecipe[1]) * 15 > 100) { /* a soup spoon weights 15g */
           ponderateGreenScore = 1 + 0.01 * Math.pow(parseInt(infoFromRecipe[1]) * 15/100, 1.5);
         } else {
           ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 15/100);
         }
         break;
       case('coffeeSpoon'):
-        if (parseInt(infoFromRecipe[1]) * 5 > 100) { /* a coffee spoon weight 5g */
+        if (parseInt(infoFromRecipe[1]) * 5 > 100) { /* a coffee spoon weights 5g */
           ponderateGreenScore = 1 + 0.01 * Math.pow(parseInt(infoFromRecipe[1]) * 5/100, 1.5);
         } else {
           ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 5/100);
         }
         break;
       case('pincee'):
-        if (parseInt(infoFromRecipe[1]) * 0.5 > 100) { /* a coffee spoon weight 0.5g */
+        if (parseInt(infoFromRecipe[1]) * 0.5 > 100) { /* a coffee spoon weights 0.5g */
           ponderateGreenScore = 1 + 0.01 * Math.pow(parseInt(infoFromRecipe[1]) * 0.5/100, 1.5);
         } else {
           ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 0.5/100);
@@ -84,5 +89,17 @@ export class GreenScoreService {
         break;
     }
     return ponderateGreenScore;
+  }
+
+  /* Case infoFromRecipe[0] === "quantity" */
+
+  quantityOrMetrics(infoFromRecipe: string[], weightPerUnity: number) {
+    if (infoFromRecipe[0] === 'quantity') {
+      let weightToInsert = 0;
+      weightToInsert = weightPerUnity * parseInt(infoFromRecipe[1]);
+      infoFromRecipe.splice(2, 0, weightToInsert.toString());
+    }
+
+    return infoFromRecipe;
   }
 }

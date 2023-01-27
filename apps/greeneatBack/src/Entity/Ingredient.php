@@ -49,6 +49,9 @@ class Ingredient
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientRecipe::class)]
     private Collection $ingredientRecipes;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $weightPerUnity = null;
+
     public function __construct()
     {
         $this->ingredientImages = new ArrayCollection();
@@ -200,6 +203,18 @@ class Ingredient
                 $ingredientRecipe->setIngredient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWeightPerUnity(): ?float
+    {
+        return $this->weightPerUnity;
+    }
+
+    public function setWeightPerUnity(?float $weightPerUnity): self
+    {
+        $this->weightPerUnity = $weightPerUnity;
 
         return $this;
     }

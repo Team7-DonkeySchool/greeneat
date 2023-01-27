@@ -51,17 +51,9 @@ export class InputIngredientsComponent {
 
       this.infoFromRecipe = this.regexIngredient.getInfoFromRecipeRequestLine(element);
 
-      console.log('recipe>>>', this.infoFromRecipe );
-
-
       /* creating an observable returning the name of the ingredient to deal with asynchronism of get function */
 
       let nameOfIngredient = of(this.infoFromRecipe[2]);
-
-      /* ponderation of greenScore depending on the grams / quantity */
-
-      if (!this.infoFromRecipe) return;
-      ponderateGreenScoreByElement = this.greenScoreService.ponderateGreenScore(this.infoFromRecipe);
 
       /* getting datas from database for ingredients */
 
@@ -70,6 +62,13 @@ export class InputIngredientsComponent {
         this.ingredientService.getIngredientsByName(ingredient)
           .subscribe((data: any)=>{
             this.ingredientInfosRequested = data["hydra:member"][0];
+
+            /* ponderation of greenScore depending on the grams / quantity */
+
+            this.infoFromRecipe = this.greenScoreService.quantityOrMetrics(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
+            
+            ponderateGreenScoreByElement = this.greenScoreService.ponderateGreenScore(this.infoFromRecipe);
+            console.log(ponderateGreenScoreByElement);
 
             if(!ponderateGreenScoreByElement) return;
             this.greenScoreTotal += this.greenScoreService.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
