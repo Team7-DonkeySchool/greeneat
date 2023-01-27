@@ -220,6 +220,8 @@ class Ingredient
     public function setWeightPerUnity(?float $weightPerUnity): self
     {
         $this->weightPerUnity = $weightPerUnity;
+
+        return $this;
     }
 
 }
