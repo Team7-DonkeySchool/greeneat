@@ -3,28 +3,37 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\IngredientRecipeRepository;
+use App\Repository\LinkedIngredientsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IngredientRecipeRepository::class)]
-#[ApiResource]
-class IngredientRecipe
+// /**
+//  * @ORM\Entity(repositoryClass=LinkedIngredientsRepository::class)
+//  * @ApiResource
+//  */
+
+#[ORM\Entity(repositoryClass:LinkedIngredientsRepository::class)]
+#[ApiResource()]
+
+class LinkedIngredients
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ingredientRecipes')]
+    #[ORM\ManyToOne(inversedBy: 'ingredient')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Ingredient $ingredient = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ingredientRecipes')]
+    #[ORM\ManyToOne(inversedBy: 'recipe')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Recipe $recipe = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable:true)]
     private ?int $quantity = null;
 
-    #[ORM\Column(length: 255)]
+    
+    #[ORM\Column(nullable:true)]
     private ?string $unit = null;
 
     public function getId(): ?int
