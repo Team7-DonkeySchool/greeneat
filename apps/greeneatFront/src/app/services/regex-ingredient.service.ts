@@ -17,7 +17,7 @@ export class RegexIngredientService {
   regExpDe = /de/g;
   regExpD1 = /[d][']?\s+/g;
   regExpD2 = /[d][']?\s*\w*/g;
-  regExpD2Rest = /(?![d]['])\w*/g;   /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
+  regExpD2Rest = /(?![d]['])\w*/g;  /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
   regExpExceptGramms = /(?!\d+?)(?![grammes])(?![d][e])(?!d')\w*/g;
   regExpKilos = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
   regExpKiloWord = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
@@ -121,7 +121,6 @@ export class RegexIngredientService {
           } 
         };
     });
-    console.log('result', infoFromRecipe);
 
     return infoFromRecipe;
   }
