@@ -50,7 +50,7 @@ class Ingredient
     private Collection $ingredientRecipe;
 
     #[ORM\Column(nullable: true)]
-    private ?int $mass_per_unit = null;
+    private ?float $weightPerUnity = null;
 
     public function __construct()
     {
@@ -212,16 +212,14 @@ class Ingredient
         return $this;
     }
 
-    public function getMassPerUnit(): ?int
+    public function getWeightPerUnity(): ?float
     {
-        return $this->mass_per_unit;
+        return $this->weightPerUnity;
     }
 
-    public function setMassPerUnit(?int $mass_per_unit): self
+    public function setWeightPerUnity(?float $weightPerUnity): self
     {
-        $this->mass_per_unit = $mass_per_unit;
-
-        return $this;
+        $this->weightPerUnity = $weightPerUnity;
     }
 
 }

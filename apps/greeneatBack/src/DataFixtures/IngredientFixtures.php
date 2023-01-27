@@ -28,6 +28,7 @@ class IngredientFixtures extends Fixture
             $entity->setEcoscore($row['ecoscore']);
             $entity->setSeasonFrom($row['seasonFrom']);
             $entity->setSeasonTo($row['seasonTo']);
+            $entity->setWeightPerUnity($row['weightPerUnity']);
             $manager->persist($entity);
 
             $i++;
