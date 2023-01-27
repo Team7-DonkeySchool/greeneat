@@ -46,7 +46,7 @@ class Ingredient
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ecoscore = null;
 
-    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: LinkedIngredients::class)]
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: LinkedIngredients::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $LinkedIngredients;
 
     #[ORM\Column(nullable: true)]

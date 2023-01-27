@@ -32,7 +32,7 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'recipes', cascade: ['persist'])]
     private Collection $Tag;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: LinkedIngredients::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: LinkedIngredients::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $linkedIngredients;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
