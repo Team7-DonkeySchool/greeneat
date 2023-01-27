@@ -32,8 +32,8 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'recipes', cascade: ['persist'])]
     private Collection $Tag;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: LinkedIngredients::class)]
-    private Collection $LinkedIngredients;
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: LinkedIngredients::class, cascade: ['persist'])]
+    private Collection $linkedIngredients;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -43,7 +43,7 @@ class Recipe
     {
         $this->recipeImages = new ArrayCollection();
         $this->Tag = new ArrayCollection();
-        $this->LinkedIngredients = new ArrayCollection();
+        $this->linkedIngredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,13 +136,13 @@ class Recipe
      */
     public function getLinkedIngredients(): Collection
     {
-        return $this->LinkedIngredients;
+        return $this->linkedIngredients;
     }
 
     public function addLinkedIngredient(LinkedIngredients $linkedIngredient): self
     {
-        if (!$this->LinkedIngredients->contains($linkedIngredient)) {
-            $this->LinkedIngredients->add($linkedIngredient);
+        if (!$this->linkedIngredients->contains($linkedIngredient)) {
+            $this->linkedIngredients->add($linkedIngredient);
             $linkedIngredient->setRecipe($this);
         }
 
@@ -151,7 +151,7 @@ class Recipe
 
     public function removeLinkedIngredient(LinkedIngredients $ingredient): self
     {
-        if ($this->LinkedIngredients->removeElement($ingredient)) {
+        if ($this->linkedIngredients->removeElement($ingredient)) {
             // set the owning side to null (unless already changed)
             if ($ingredient->getRecipe() === $this) {
                 $ingredient->setRecipe(null);
