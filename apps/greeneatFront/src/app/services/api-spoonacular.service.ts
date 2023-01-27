@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ArrayRecipes, Recipe } from '../typings';
+import { ArrayRecipes, Recipe, RecipeArray } from '../typings';
 import { ApiService } from './api.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -32,6 +32,14 @@ export class ApiSpoonacularService extends ApiService {
 
     return this.http
       .get<ArrayRecipes>(`${environment.baseUrlSpoonacular}/search`, {params: queryParams});
+  }
+
+  getApiSpoonacularRandom(): Observable<RecipeArray> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("apiKey", environment.spoonacularApiKey);
+
+    return this.http
+      .get<RecipeArray>(`${environment.randomRecipeSpoonacular}`, {params: queryParams});
   }
 
 }

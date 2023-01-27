@@ -1,6 +1,8 @@
 export const environment = {
     baseUrlSpoonacular: 'https://api.spoonacular.com/recipes/',
-    spoonacularApiKey: 'dbfb5a18aa1949a78c5aa7bb02494fd9',
+    spoonacularApiKey: 'c905b0266b1c44c3a39cb868db3703aa',
     baseUrlOpenfoodFacts: 'https://world.openfoodfacts.org/cgi/',
     baseUrlApiPlatform: 'https://localhost:8000/api/',
+    randomRecipeSpoonacular: 'https://api.spoonacular.com/recipes/random?number=1&tags=vegetarian,dessert',
+    imageSpoonacularBaseUrl: 'https://spoonacular.com/recipeImages/'
 };
