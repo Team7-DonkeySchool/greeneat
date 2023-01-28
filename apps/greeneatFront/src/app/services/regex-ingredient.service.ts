@@ -5,20 +5,24 @@ import { Injectable } from '@angular/core';
 })
 export class RegexIngredientService {
 
+  /*  english regex  */
+  regExpSpoonEN = /[s][p][o][o][n][s]?/g
+  regExpCoffeeEN = /[c][o][f][f][e]?[e]?[s]?/g;
+  regExpOf = /[o][f]/g;
+
   regExpGrams = /\d+[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
   regExpGramWord = /^[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
-  regExpPincee = /pinc[é]?[è]?[e]?[e]?[s]?/g;
-  regExpSpoon = /cuill[e]?[è]?[é]?[r][e]?[e]?[s]?/g;
-  regExpSoup = /soup[e]?/g;
-  regExpCoffee = /caf[f]?[e]?[é]?[è]?/g;
-  regExpSoupSpoon = /cuill[[e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[s][o]?[u]?[p]?[e]?|càs|cas/g;
-  regExpCoffeeSpoon = /cuill[[e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[c][a]?[f]?[f]?[e]?[é]?[è]?|càc|cac/g;
+  regExpPincee = /[p][i][n][c][h]?[é]?[è]?[e]?[e]?[s]?/g;
+  regExpSpoon = /[c][u][i][l][l][e]?[è]?[é]?[r][e]?[e]?[s]?/g;
+  regExpSoup = /[s][o][u][p][e]?/g;
+  regExpCoffee = /[c][a][f][f]?[e]?[é]?[è]?/g;
+  regExpSoupSpoon = /[c][u][i][l][l][e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[s][o]?[u]?[p]?[e]?|càs|cas/g;
+  regExpCoffeeSpoon = /[c][u][i][l][l][[e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[c][a]?[f]?[f]?[e]?[é]?[è]?|càc|cac/g;
   regExpQuantity = /\d+\s*/g;
-  regExpDe = /de/g;
+  regExpDe = /[d][e]/g;
   regExpD1 = /[d][']?\s+/g;
   regExpD2 = /[d][']?\s*\w*/g;
   regExpD2Rest = /(?![d]['])\w*/g;  /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
-  regExpExceptGramms = /(?!\d+?)(?![grammes])(?![d][e])(?!d')\w*/g;
   regExpKilos = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
   regExpKiloWord = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
   regExpLitres = /\d+[l][i]?[t]?[r]?[e]?[s]?/g;

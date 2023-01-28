@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { of } from 'rxjs';
+import { mergeMap, of } from 'rxjs';
 import { GreenScoreService } from 'src/app/services/green-score.service';
 import { IngredientsService } from 'src/app/services/ingredients.service';
 import { RegexIngredientService } from 'src/app/services/regex-ingredient.service';
@@ -53,28 +53,28 @@ export class InputIngredientsComponent {
 
       /* creating an observable returning the name of the ingredient to deal with asynchronism of get function */
 
-      let nameOfIngredient = of(this.infoFromRecipe[2]);
+      const nameOfIngredient$ = of(this.infoFromRecipe[2]);
 
       /* getting datas from database for ingredients */
 
-      nameOfIngredient.subscribe((ingredient)=>{
-        
-        this.ingredientService.getIngredientsByName(ingredient)
-          .subscribe((data: any)=>{
-            this.ingredientInfosRequested = data["hydra:member"][0];
+      nameOfIngredient$
+        .pipe(
+          mergeMap(ingredient => this.ingredientService.getIngredientsByName(ingredient))
+        )
+        .subscribe((data: any)=>{
+          this.ingredientInfosRequested = data["hydra:member"][0];
 
-            /* ponderation of greenScore depending on the grams / quantity */
+          /* ponderation of greenScore depending on the grams / quantity */
 
-            this.infoFromRecipe = this.greenScoreService.quantityOrMetrics(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
-            
-            ponderateGreenScoreByElement = this.greenScoreService.ponderateGreenScore(this.infoFromRecipe);
-            console.log(ponderateGreenScoreByElement);
+          this.infoFromRecipe = this.greenScoreService.quantityOrMetrics(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
+          
+          ponderateGreenScoreByElement = this.greenScoreService.ponderateGreenScore(this.infoFromRecipe);
+          console.log(ponderateGreenScoreByElement);
 
-            if(!ponderateGreenScoreByElement) return;
-            this.greenScoreTotal += this.greenScoreService.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
-            this.greenScore = Math.round((this.greenScoreTotal / recipesIngredientFiltred.length));
-          });
-      })
+          if(!ponderateGreenScoreByElement) return;
+          this.greenScoreTotal += this.greenScoreService.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
+          this.greenScore = Math.round((this.greenScoreTotal / recipesIngredientFiltred.length));
+        });
     });
     this.isGreenScoreVisible = true;
   }
