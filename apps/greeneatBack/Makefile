@@ -13,3 +13,12 @@ rebuild: ## Rebuild the project
 	symfony console doctrine:database:create
 	symfony console doctrine:schema:update -f
 	symfony console doctrine:fixtures:load -n
+
+start: ## Start the project
+	symfony server:start
+
+open: ## Open the project
+	symfony open:local
+
+run: ## Run the project
+	make start && make open
