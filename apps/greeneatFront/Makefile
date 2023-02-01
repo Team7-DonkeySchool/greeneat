@@ -12,7 +12,4 @@ start: ## Run the app
 	@npm start
 
 open: ## Open the app
-	@open http://localhost:4200
-
-run: ## Run the app
-	make start && make open
+	@ng serve --o
