@@ -6,6 +6,15 @@ help:
 
 install:## Install the project
 	cd ./apps/greeneatBack && make install
+	cd ./apps/greeneatFront && make install
 
 rebuild: ## Rebuild the project
 	cd ./apps/greeneatBack && make rebuild
+
+start: ## Start the project
+	cd ./apps/greeneatBack && make start
+	cd ./apps/greeneatFront && make start
+
+open: ## Open the project
+	cd ./apps/greeneatBack && make open
+	cd ./apps/greeneatFront && make open

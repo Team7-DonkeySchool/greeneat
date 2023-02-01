@@ -19,6 +19,3 @@ start: ## Start the project
 
 open: ## Open the project
 	symfony open:local
-
-run: ## Run the project
-	make start && make open
