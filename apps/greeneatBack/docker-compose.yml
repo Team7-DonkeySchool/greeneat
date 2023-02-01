@@ -22,6 +22,7 @@ services:
     ports:
       - "${ELASTICSEARCH_PORT}:9200"
 
+
   kibana:
     depends_on:
       - elasticsearch
@@ -29,8 +30,6 @@ services:
     environment:
       SERVER_NAME: localhost
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-
-
     ports:
       - "${KIBANA_PORT}:5601"
 
