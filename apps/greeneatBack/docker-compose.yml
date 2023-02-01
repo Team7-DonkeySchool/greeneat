@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-15}-alpine
@@ -15,7 +16,28 @@ services:
       # - ./docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.1
+    environment:
+        discovery.type: "single-node"
+        xpack.security.enabled: false
+    ports:
+        - "9200:9200"
+
+  kibana:
+    depends_on:
+        - elasticsearch
+    image: docker.elastic.co/kibana/kibana:8.6.1
+    environment:
+        SERVER_NAME: localhost
+        ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+        - "5601:5601"
+
+
 volumes:
 ###> doctrine/doctrine-bundle ###
   db-data:
 ###< doctrine/doctrine-bundle ###
+
+

@@ -26,3 +26,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # App\Elastic\Elastic:
+    #     arguments:
+    #         $elasticHosts: [ '127.0.0.1:9200' ]
+    #         $configDir: '%kernel.project_dir%/config/elastic'
