@@ -143,7 +143,7 @@ class Ingredient
     /**
      * @return Collection<int, IngredientImage>
      */
-    public function getIngredientImages(): Collection
+    public function getIngredientImages(): App\Entity\Collection
     {
         return $this->ingredientImages;
     }
