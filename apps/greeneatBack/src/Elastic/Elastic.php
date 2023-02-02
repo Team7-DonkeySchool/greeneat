@@ -6,6 +6,7 @@ use Elastic\Elasticsearch\ClientBuilder;
 use Elastic\Elasticsearch\Client;
 use Elasticsearch\Client as ElasticsearchClient;
 use Elasticsearch\ClientBuilder as ElasticsearchClientBuilder;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -16,7 +17,11 @@ class Elastic
 
     public function __construct(
         private PropertyAccessorInterface $propertyAccessor,
+
+        #[Autowire('%env(csv:ELASTIC_HOSTS)%')]
         private array $elasticHosts,
+
+        #[Autowire('%kernel.project_dir%/config/elastic')]
         private string $configDir
     )
     {
