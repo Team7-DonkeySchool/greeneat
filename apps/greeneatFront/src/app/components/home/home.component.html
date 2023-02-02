@@ -1,30 +1,26 @@
 <!--* Full background ################################################################################################-->
 <div class="py-5">
     <h1 class="text-center text-green">GreenEat</h1>
-    <h2 class="text-center text-light">The best recipes for you</h2>
+    <h2 class="text-center text-light">Calculez le green score de votre recette !!!</h2>
 </div>
 
 <!--* STARTER 1 ################################################################################################-->
 
-<div class="starter d-flex bg-black">
+<!-- <div class="starter d-flex bg-black">
     <a class="border-radius-left bg-white w-100" id="yourRecipes">
         <h3 class="text-center text-dark">Your recipes</h3>
     </a>
     <a class="border-radius-right bg-green w-100" id="panelRecipes">
         <h3 class="text-center text-light">Panel of recipes</h3>
     </a>
-</div>
+</div> -->
 <div class="bg-white">
-
-<ul>
-    <li><a href="" routerLink="spoonacular_recipes">Tester l'API Recettes Spoonacular</a></li>
-    <li><a href="" routerLink="openfoodfacts_ecoscore">Tester l'API Ecoscore OpenFoodFacts</a></li>
-    <li><a href="" routerLink="ingredients_tests">Tester les ingrédients</a></li>
-</ul>
 
 <app-input-ingredients></app-input-ingredients>
 
+<input type="checkbox" (change)="yourfunc($event)">
 
+<h2>{{ isDark }}</h2>
 
 <div class="seasonal-title pt-5">
     <h2>seasonal recipe</h2>
@@ -35,6 +31,13 @@
 <app-seasonal-recipes></app-seasonal-recipes>
 <section class="py-55"></section>
 </div>
+
+<ul>
+    <li><a href="" routerLink="spoonacular_recipes">Tester l'API Recettes Spoonacular</a></li>
+    <li><a href="" routerLink="openfoodfacts_ecoscore">Tester l'API Ecoscore OpenFoodFacts</a></li>
+    <li><a href="" routerLink="ingredients_tests">Tester les ingrédients</a></li>
+</ul>
+
 
 
 

@@ -1,6 +1,6 @@
 //your-recipes ###############################################################
 .btn-calcul-text {
-    width: 70%;
+    width: 90%;
     padding: 2%;
     border-radius: var(--border-radius-s);
 }
@@ -8,12 +8,13 @@
 textarea.form-control {
     border-radius: var(--border-radius-s);
     background-color: var(--tertiary);
+    font-size: 1.5rem;
 }
 
 .greenButton {
-     display: flex;
-     width: 100%;
-     justify-content: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 //panel-recipes ###############################################################

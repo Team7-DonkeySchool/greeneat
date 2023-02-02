@@ -7,6 +7,7 @@
                 <h4>Le savais-tu ?</h4>
                 <span>Les manchots mâles draguent en offrant aux femelles des cailloux.</span>
             </div>
+            <h2 *ngIf="errorInput">Impossible de calculer le greenScore, reformuler la recette</h2>
             <h1 *ngIf="isGreenScoreVisible" [ngClass]="">Votre GreenScore : {{ greenScore }} / 100</h1>
         </div>
     </div>
