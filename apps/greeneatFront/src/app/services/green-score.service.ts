@@ -9,7 +9,7 @@ export class GreenScoreService {
 
   /* function to calculate the green score */
 
-  calculateGreenScore(ecoscore: string, ratioCo2: number, ratioH2o: number) {
+  public calculateGreenScore(ecoscore: string, ratioCo2: number, ratioH2o: number) {
     let ecoScoreNumber = 0;
     switch (ecoscore) {
       case('A'):
@@ -33,7 +33,7 @@ export class GreenScoreService {
 
   /* function to ponderate the green score */
 
-  ponderateGreenScore(infoFromRecipe: string[]) {
+  public ponderateGreenScore(infoFromRecipe: string[]) {
 
     console.log('heyyyyyy', infoFromRecipe);
 
@@ -95,7 +95,7 @@ export class GreenScoreService {
 
   /* Case infoFromRecipe[0] === "quantity" */
 
-  quantityOrMetrics(infoFromRecipe: string[], weightPerUnity: number) {
+  public quantityOrMetrics(infoFromRecipe: string[], weightPerUnity: number) {
     if (infoFromRecipe[0] === 'quantity') {
       let weightToInsert = 0;
       weightToInsert = weightPerUnity * parseInt(infoFromRecipe[1]);
