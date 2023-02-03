@@ -1,43 +1,28 @@
 <!--* Full background ################################################################################################-->
-<div class="py-5">
-    <h1 class="text-center text-green">GreenEat</h1>
-    <h2 class="text-center text-light">The best recipes for you</h2>
+<div class="py--5 d-flex flex-column justify-content-center">
+    <div class="d-flex justify-content-center">
+        <img class="title-greeneat-dark" src="../../assets/img/title-dark.svg">
+        <img class="title-greeneat-light" src="../../assets/img/title-light.svg">
+    </div>
+    <h2 class="text-center">Mangez plus sain, pour vous et notre planète</h2>
 </div>
 
 <!--* STARTER 1 ################################################################################################-->
 
-<div class="starter d-flex bg-black">
-    <a class="border-radius-left bg-white w-100" id="yourRecipes">
-        <h3 class="text-center text-dark">Your recipes</h3>
-    </a>
-    <a class="border-radius-right bg-green w-100" id="panelRecipes">
-        <h3 class="text-center text-light">Panel of recipes</h3>
-    </a>
-</div>
-<div class="bg-white">
-
-<ul>
+<!-- <ul>
     <li><a href="" routerLink="spoonacular_recipes">Tester l'API Recettes Spoonacular</a></li>
     <li><a href="" routerLink="openfoodfacts_ecoscore">Tester l'API Ecoscore OpenFoodFacts</a></li>
     <li><a href="" routerLink="ingredients_tests">Tester les ingrédients</a></li>
-</ul>
+</ul> -->
 
 <app-input-ingredients></app-input-ingredients>
 
-
-
 <div class="seasonal-title pt-5">
-    <h2>seasonal recipe</h2>
-    <span>Here is a seasonal recipe</span>
+    <h2>Recettes</h2>
+    <span>Nos recettes du moment</span>
 </div>
-</div>
+
 <div class="background">
-<app-seasonal-recipes></app-seasonal-recipes>
-<section class="py-55"></section>
+    <app-seasonal-recipes></app-seasonal-recipes>
+    <section class="py-55"></section>
 </div>
-
-
-
-
-
-

@@ -1,36 +1,5 @@
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">GreenEat</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Recipes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">About us</a>
-                    </li>
-                </ul>
+<img class="header" src="../../assets/img/wave.svg" alt="">
 
-                <div class="switch-mode">
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-            </div>
-        </div>
-    </nav>
+<div class="theme" *ngFor="let theme of themes" (click)="setTheme(theme.name)">
+    <img *ngIf="colorSchemeService.currentActive() === theme.name" src="{{ theme.icon }}" alt="{{ theme.name }}">
+</div>

@@ -4,12 +4,66 @@
         <div class="col" *ngFor="let recipe of recipeArray; let i = index">
             <div class="card">
                 <div class="card-body">
-                    <img [src]="recipe.image" class="card-img-top" [alt]="recipe.image">
+                    <img [src]="recipe.image" class="card-img" [alt]="recipe.image">
 
                     <h5 class="card-title">{{ recipe.title }}</h5>
                     <p class="card-text">30 Minutes/tags</p>
                 </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col">
+            <div class="card h-100">
+                <img src="../../assets/img/placeholderRECETTE.jpg" class="card-img" alt="ico">
+                <div class="card-body">
+                    <h5 class="card-title">Gratin</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="../../assets/img/placeholderRECETTE.jpg" class="card-img" alt="ico">
+                <div class="card-body">
+                    <h5 class="card-title">Gratin</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <img src="../../assets/img/placeholderRECETTE.jpg" class="card-img" alt="ico">
+                <div class="card-body">
+                    <h5 class="card-title">Gratin de pomme de terre avec un peu d'olive</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <img src="../../assets/img/placeholderRECETTE.jpg" class="card-img" alt="ico">
+                <div class="card-body">
+                    <h5 class="card-title">Gratin</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
             </div>
         </div>
     </div>
+
 </section>
