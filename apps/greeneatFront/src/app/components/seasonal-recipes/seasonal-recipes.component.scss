@@ -1,28 +1,25 @@
-
-//seasonal ###############################################################
-
+.card-title {
+  color: black;
+}
 
 .card {
-    border: 0px;
-    --bs-card-border-color: 0px !important;
-
+  border: 0px;
+  --bs-card-border-color: 0px !important;
 }
 
-.card-body {
-    padding: 5%;
-    background: var(--secondary);
-    border-radius: var(--border-radius-s);
-    background: linear-gradient(0deg, var(--secondary) 0%, rgba(50, 200, 140, 0.010) 100%);
-    transition: all 0.5s ease-in-out;
+.card {
+  padding: 7%;
+  background: var(--primary);
+  border-radius: var(--border-radius-s);
+  transition: all 0.5s ease-in-out;
 }
 
-.card-body:hover {
-    scale: 1.1;
-    background: var(--primary);
-    background: linear-gradient(0deg, var(--primary) 0%, rgba(50, 200, 140, 0.010) 100%);
+.card:hover {
+  scale: 1.1;
+  background: var(--secondary);
 }
 
 .card img {
-    border-radius: var(--border-radius-s);
-    margin-bottom: 5%;
+  border-radius: var(--border-radius-s);
+  margin-bottom: 5%;
 }

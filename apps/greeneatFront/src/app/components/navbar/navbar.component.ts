@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { ColorSchemeService } from '../../services/color-scheme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,26 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  public themes = [
+    {
+      name: 'dark',
+      icon: '../../assets/img/moon.svg'
+    },
+    {
+      name: 'light',
+      icon: '../../assets/img/sun.svg'
+    }
+  ];
+
+  constructor(public colorSchemeService: ColorSchemeService) {
+  }
+
+  setTheme(theme: string) {
+    console.log(theme);
+    if (theme === 'dark') {
+      this.colorSchemeService.update('light');
+    } else {
+    this.colorSchemeService.update('dark');
+    }
+  }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<svg height="50" width="50" data-name="Layer 2" id="Layer_2" viewBox="0 0 2010 2010" 
+xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<style>.cls-1{fill:url(#linear-gradient);}.cls-2,.cls-5,.cls-6{opacity:0.2;}.cls-3{fill:url(#linear-gradient-2);}.cls-4{fill:url(#linear-gradient-3);}.cls-5{fill:url(#linear-gradient-4);}.cls-6{fill:url(#linear-gradient-5);}.cls-7{fill:url(#linear-gradient-6);}</style>
+<linearGradient gradientUnits="userSpaceOnUse" id="linear-gradient" x1="213.18" x2="1796.82" y1="1005" y2="1005">
+<stop offset="0" stop-color="#ffe88a"/>
+<stop offset="1" stop-color="#ffe4c5"/>
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" id="linear-gradient-2" x1="1306.89" x2="81.06" y1="-234.15" y2="1852.76">
+<stop offset="0.06" stop-color="#ff6800"/>
+<stop offset="1" stop-color="#fff100"/>
+</linearGradient>
+<linearGradient id="linear-gradient-3" x1="1685.92" x2="460.09" xlink:href="#linear-gradient-2" y1="-11.51" y2="2075.4"/>
+<linearGradient id="linear-gradient-4" x1="1942.48" x2="716.65" xlink:href="#linear-gradient-2" y1="139.19" y2="2226.1"/>
+<linearGradient id="linear-gradient-5" x1="1888.12" x2="662.29" xlink:href="#linear-gradient-2" y1="107.27" y2="2194.17"/>
+<linearGradient id="linear-gradient-6" x1="1486.34" x2="260.51" xlink:href="#linear-gradient-2" y1="-128.74" y2="1958.16"/></defs><path class="cls-1" d="M1005,1796.82a789.63,789.63,0,1,1,308.23-62.26A786.89,786.89,0,0,1,1005,1796.82Z"/><g class="cls-2"><circle class="cls-3" cx="718.13" cy="768.19" r="170.78"/></g><g class="cls-2"><circle class="cls-4" cx="1350.84" cy="558.95" r="107.95"/></g><circle class="cls-5" cx="1384.68" cy="1088.82" r="104.13"/><circle class="cls-6" cx="1071.33" cy="1497.8" r="61.2"/><g class="cls-2"><circle class="cls-7" cx="619.66" cy="1346.73" r="98.47"/></g></svg>
