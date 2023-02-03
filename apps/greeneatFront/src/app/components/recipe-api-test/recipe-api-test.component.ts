@@ -9,15 +9,15 @@ import { Recipe } from 'src/app/typings';
 })
 export class RecipeApiTestComponent implements OnInit{
 
-  title?: string;
-  image?: string;
-  searchInput = '';
-  idRecipe = 1;
-  titleResult?: string;
-  imageResult?: string;
-  recipes?: any;
-  ingredients?: any;
-  imageRecipeUrl = 'https://spoonacular.com/recipeImages/';
+  public title?: string;
+  public image?: string;
+  public searchInput: string = '';
+  public idRecipe: number = 1;
+  public titleResult?: string;
+  public imageResult?: string;
+  public recipes?: any;
+  public ingredients?: any;
+  public imageRecipeUrl: string = 'https://spoonacular.com/recipeImages/';
 
   constructor(private apiSpoonService: ApiSpoonacularService) {
   }
@@ -31,7 +31,7 @@ export class RecipeApiTestComponent implements OnInit{
     });
   }
 
-  onSearchRecipe() {
+  public onSearchRecipe() {
     this.apiSpoonService.getApiSpoonacularByName(this.searchInput).subscribe((data)=>{
       this.recipes = data.results;
       console.log(this.recipes);

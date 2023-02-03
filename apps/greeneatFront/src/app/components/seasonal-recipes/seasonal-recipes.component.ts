@@ -9,15 +9,15 @@ import { Recipe } from 'src/app/typings';
 })
 export class SeasonalRecipesComponent {
 
-  title?: string;
-  image?: string;
-  searchInput = '';
-  idRecipe = 0;
-  titleResult?: string;
-  imageResult?: string;
-  recipe?: Recipe[];
-  ingredients?: any;
-  recipeArray? : Recipe[];
+  public title?: string;
+  public image?: string;
+  public searchInput: string = '';
+  public idRecipe: number = 0;
+  public titleResult?: string;
+  public imageResult?: string;
+  public recipe?: Recipe[];
+  public ingredients?: any;
+  public recipeArray? : Recipe[];
 
   constructor(private apiSpoonService: ApiSpoonacularService) {
   }

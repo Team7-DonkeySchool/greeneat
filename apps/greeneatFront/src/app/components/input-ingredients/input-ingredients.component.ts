@@ -10,13 +10,13 @@ import { RegexIngredientService } from 'src/app/services/regex-ingredient.servic
     styleUrls: ['./input-ingredients.component.scss']
 })
 export class InputIngredientsComponent {
-  recipesIngredient?: string[];
-  recipe?: string;
-  infoFromRecipe?: any;
-  ingredientInfosRequested?: any;
-  greenScore?: number;
-  greenScoreTotal: number = 0;
-  isGreenScoreVisible = false;
+  public recipesIngredient?: string[];
+  public recipe?: string;
+  public infoFromRecipe?: any;
+  public ingredientInfosRequested?: any;
+  public greenScore?: number;
+  public greenScoreTotal: number = 0;
+  public isGreenScoreVisible: boolean = false;
 
   constructor (private greenScoreService: GreenScoreService, private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {}
 
@@ -24,7 +24,7 @@ export class InputIngredientsComponent {
     this.isGreenScoreVisible = false;
   }
 
-  onCalculateGreeScore(){
+  public onCalculateGreeScore(){
     this.greenScore = 0;
     this.greenScoreTotal = 0;
 

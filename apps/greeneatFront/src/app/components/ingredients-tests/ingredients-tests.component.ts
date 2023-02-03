@@ -8,15 +8,15 @@ import { IngredientsService } from 'src/app/services/ingredients.service';
 })
 export class IngredientsTestsComponent implements OnInit {
 
-  name?: string;
-  valuesToTreat?: any;
+  public name?: string;
+  public valuesToTreat?: any;
 
   constructor (private ingredientsService: IngredientsService) {}
 
   ngOnInit(): void {
   }
 
-  onSearchByName() {
+  public onSearchByName() {
     if (!this.name) return;
     
     this.ingredientsService.getIngredientsByName(this.name).subscribe((data)=>{

@@ -9,15 +9,15 @@ import { Product } from 'src/app/typings';
 })
 export class OpenfoodfactsApiTestComponent implements OnInit{
 
-  productName?: string;
-  products?: Product[];
+  public productName?: string;
+  public products?: Product[];
 
   constructor(private openfoodfactsApiService: ApiOpenfoodfactsService) {}
 
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  public onSubmit() {
     if(!this.productName) return;
 
     this.openfoodfactsApiService.getOpenFoodFactsProductByName(this.productName).subscribe((data)=>{

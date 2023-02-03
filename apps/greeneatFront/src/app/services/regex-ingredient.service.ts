@@ -6,33 +6,33 @@ import { Injectable } from '@angular/core';
 export class RegexIngredientService {
 
   /*  english regex  */
-  regExpSpoonEN = /[s][p][o][o][n][s]?/g
-  regExpCoffeeEN = /[c][o][f][f][e]?[e]?[s]?/g;
-  regExpOf = /[o][f]/g;
+  private regExpSpoonEN: RegExp = /[s][p][o][o][n][s]?/g
+  private regExpCoffeeEN: RegExp = /[c][o][f][f][e]?[e]?[s]?/g;
+  private regExpOf: RegExp = /[o][f]/g;
 
-  regExpGrams = /\d+[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
-  regExpGramWord = /^[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
-  regExpPincee = /[p][i][n][c][h]?[é]?[è]?[e]?[e]?[s]?/g;
-  regExpSpoon = /[c][u][i][l][l][e]?[è]?[é]?[r][e]?[e]?[s]?/g;
-  regExpSoup = /[s][o][u][p][e]?/g;
-  regExpCoffee = /[c][a][f][f]?[e]?[é]?[è]?/g;
-  regExpSoupSpoon = /[c][u][i][l][l][e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[s][o]?[u]?[p]?[e]?|càs|cas/g;
-  regExpCoffeeSpoon = /[c][u][i][l][l][[e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[c][a]?[f]?[f]?[e]?[é]?[è]?|càc|cac/g;
-  regExpQuantity = /\d+\s*/g;
-  regExpDe = /[d][e]/g;
-  regExpD1 = /[d][']?\s+/g;
-  regExpD2 = /[d][']?\s*\w*/g;
-  regExpD2Rest = /(?![d]['])\w*/g;  /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
-  regExpKilos = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
-  regExpKiloWord = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
-  regExpLitres = /\d+[l][i]?[t]?[r]?[e]?[s]?/g;
-  regExpLitreWord = /[l][i]?[t]?[r]?[e]?[s]?/g;
+  private regExpGrams: RegExp = /\d+[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
+  private regExpGramWord: RegExp = /^[g][r]?[a]?[m]?[m]?[e]?[s]?/g;
+  private regExpPincee: RegExp = /[p][i][n][c][h]?[é]?[è]?[e]?[e]?[s]?/g;
+  private regExpSpoon: RegExp = /[c][u][i][l][l][e]?[è]?[é]?[r][e]?[e]?[s]?/g;
+  private regExpSoup: RegExp = /[s][o][u][p][e]?/g;
+  private regExpCoffee: RegExp = /[c][a][f][f]?[e]?[é]?[è]?/g;
+  private regExpSoupSpoon: RegExp = /[c][u][i][l][l][e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[s][o]?[u]?[p]?[e]?|càs|cas/g;
+  private regExpCoffeeSpoon: RegExp = /[c][u][i][l][l][[e]?[è]?[é]?[r][e]?[e]?[s]?\s*[a]?[à]?\s*[c][a]?[f]?[f]?[e]?[é]?[è]?|càc|cac/g;
+  private regExpQuantity: RegExp = /\d+\s*/g;
+  private regExpDe: RegExp = /[d][e]/g;
+  private regExpD1: RegExp = /[d][']?\s+/g;
+  private regExpD2: RegExp = /[d][']?\s*\w*/g;
+  private regExpD2Rest: RegExp = /(?![d]['])\w*/g;  /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
+  private regExpKilos: RegExp = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
+  private regExpKiloWord: RegExp = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
+  private regExpLitres: RegExp = /\d+[l][i]?[t]?[r]?[e]?[s]?/g;
+  private regExpLitreWord: RegExp = /[l][i]?[t]?[r]?[e]?[s]?/g;
 
   constructor() { }
 
   /* verifying if it is followed by "de", "d'" */
 
-  pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray: any, infoFromRecipe: string[], element: any, index: number, place: number) {
+  public pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray: any, infoFromRecipe: string[], element: any, index: number, place: number) {
     if (!element || !recipeArray) return;
     if (recipeArray[index + place].match(this.regExpDe)) { 
       infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place + 1));
@@ -47,7 +47,7 @@ export class RegexIngredientService {
 
   /* get the ingredients composed of several words such as "sucre de canne" */
 
-  getEndOfArrayAsSentence(array: string[], place: number): any {
+  public getEndOfArrayAsSentence(array: string[], place: number): any {
     let array2 = [];
     for (let i = place; i < array.length; i++) {
       array2.push(array[i]);
@@ -57,7 +57,7 @@ export class RegexIngredientService {
     
   /* applying regex to the recipe line to get infos" */
 
-  getInfoFromRecipeRequestLine(recipeLine: any) {
+  public getInfoFromRecipeRequestLine(recipeLine: any) {
     
     let recipeArrayTotal = recipeLine.split(" ");
     let recipeArray: string[] = [];
