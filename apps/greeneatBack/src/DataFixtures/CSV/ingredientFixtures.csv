@@ -1,101 +1,103 @@
-name,ratioCo2,ratioH2o,ecoscore,seasonFrom,seasonTo,weightPerUnity
-sucre,0.07,20,B,01-01,12-31,0
-sucre de canne,0.07,50,D,01-01,12-31,0
-sel,0.07,20,B,01-01,12-31,0
-carottes,0.11,20,B,09-01,03-01,125
-tomates,0.29,21,A,06-01,09-30,130
-melons,0.09,22,B,06-01,09-30,800
-salades,0.16,25,A,04-01,12-31,289
-ananas,0.17,25,B,11-01,03-31,3000
-oignons,0.10,27,A,09-01,04-30,100
-échalottes,0.10,27,B,01-01,12-31,25
-chou-fleurs,0.10,28,B,09-01,03-31,1500
-brocolis,0.11,28,B,09-01,11-30,0
-épinards,0.14,29,B,09-01,05-31,0
-vegetables,0.10,33,B,,,0
-citrouilles,0.06,33,A,09-01,01-31,5000
-courges,0.12,33,A,09-01,01-31,1500
-fraises,0.22,34,A,05-01,07-31,20
-fraise des bois,0.18,34,A,04-01,09-30,0.1
-concombres,0.19,35,B,05-01,10-31,500
-aubergines,0.50,36,A,06-01,09-30,225
-poivrons,0.20,37,A,06-01,09-30,150
-piments,0.20,37,A,,,2
-patate douce,0.20,38,A,,,200
-framboises,0.26,41,B,06-01,08-31,4
-kiwis,0.09,51,B,11-01,03-31,100
-haricots verts,0.06,56,A,06-01,10-31,0.4
-oranges,0.19,56,A,01-01,03-31,200
-orange sanguine,0.19,56,A,01-01,03-31,200
-tofu,0.18,57,B,,,0
-petits pois,0.42,59,A,05-01,07-31,0.04
-raisins,0.21,60,A,09-01,10-31,4
-bananes,0.13,79,B,01-01,04-30,120
-pommes,0.09,80,A,08-01,04-30,170
-artichauts,0.34,80,B,04-01,09-30,400
-myrtilles,0.29,84,A,04-01,09-30,1.4
-pomme de terre,0.13,90,A,01-01,12-31,170
-pêches,0.19,91,A,06-01,09-30,150
-pêche de vignes,0.19,91,A,10-31,12-31,80
-poires,0.10,92,A,08-01,03-31,120
-fruits,0.12,96,A,,,0
-jus d'oranges,0.20,101,C,,,0
-lait de vache,0.18,102,C,,,0
-lait de chèvre,0.27,100,,,,0
-lait de mouton,0.84,100,,,,0
-avocats,0.24,110,C,06-01,04-30,250
-abricots,0.04,128,A,06-01,09-30,55
-farine,0.07,150,A,01-01,12-31,0
-blé,0.07,150,A,01-01,12-31,0
-pains,0.12,160,A,,,0
-cerises,0.29,160,A,06-01,07-31,7
-soja,0.20,180,A,01-01,12-31,0
-lait de soja,0.80,180,B,01-01,12-31,0
-mangues,0.44,180,B,01-01,12-31,400
-goyaves,0.44,180,B,01-01,03-31,90
-pâtes,0.14,184,A,01-01,12-31,0
-asperges,0.70,215,A,04-01,06-30,40
-riz,0.13,240,E,01-01,12-31,0.05
-cacahuètes,0.14,278,D,,,1
-olives,0.05,301,A,09-01,01-31,4
-oeufs,0.45,326,B,,,60
-amandes,0.29,400,E,,,0.9
-pois chiche,0.08,417,B,07-01,09-30,0.4
-poulets,0.47,432,C,,,1500
-quinoa,0.08,450,D,01-01,12-31,0
-fromages,0.88,500,C,01-01,12-31,0
-haricots blancs,0,500,A,,,0.4
-noisettes,0.45,530,E,,,1.5
-beurre,0.98,550,C,01-01,12-31,0
-lentilles,0.07,580,A,07-01,08-31,0
-lardons porc,0.61,598,E,,,0
-porc,0.66,598,C,,,0
-huile de colza,0.25,680,B,01-01,12-31,0
-huile d'olive,0.25,680,C,01-01,12-31,0
-huile de noix,0.5,680,E,01-01,12-31,0
-huile de tournesol,0.25,680,C,01-01,12-31,0
-thé,0.06,880,A,01-01,12-31,0
-noix,0.20,906,E,,,5
-pistaches,0.23,1160,D,,,0.4
-noix de cajoux,0.20,1420,D,,,2
-viande hachée,4.33,1541,E,,,0
-steak haché,4.33,1541,E,,,200
-boeuf,4.33,1541,E,,,0
-grains de café,0.06,1580,E,,,0.06
-café,0.06,1580,E,,,0
-chocolats,0.14,1700,D,,,0
-lait de coco,0.29,0,C,11-01,02-28,0
-noix de coco,0.08,0,C,11-01,02-28,0
-eau en bouteille,0.05,0.1,B,,,0
-eau du robinet,0.0001,0.1,A,,,0
-bière,0.07,29,C,,,0
-vin,0.11,87,C,,,0
-rhum,0.11,87,C,,,0
-poireaux,0.105,35,A,09-01,03-31,150
-navets,0.068,35,A,06-01,09-30,200
-cresson,0.16,25,A,04-01,12-31,200
-courgettes,0.086,35,A,06-01,09-30,250
-ail,0.045,27,B,04-01,08-31,0.007
-citrons,0.19,55,A,01-01,12-31,100
-pamplemousses,0.08,55,B,12-01,03-31,400
-moutarde,0.022,80,C,,,0
+nameFR,nameEN,ratioCo2,ratioH2o,ecoscore,seasonFrom,seasonTo,weightPerUnity
+sucre,sugar,0.07,20,B,01-01,12-31,0
+sucre de canne,brown sugar,0.07,50,B,01-01,12-31,0
+carottes,carrots,0.11,20,C,09-01,03-01,125
+tomates,tomatoes,0.29,21,A,06-01,09-30,130
+melons,melons,0.09,22,B,06-01,09-30,800
+salades,salads,0.16,25,A,04-01,12-31,289
+ananas,pineapples,0.17,25,B,11-01,03-31,3000
+oignons,onions,0.10,27,A,09-01,04-30,100
+échalottes,shallots,0.10,27,B,01-01,12-31,25
+chou-fleurs,cauliflowers,0.10,28,B,09-01,03-31,1500
+brocolis,broccoli,0.11,28,B,09-01,11-30,0
+épinards,spinach,0.14,29,B,09-01,05-31,0
+légumes,vegetables,0.10,33,B,,,0
+citrouilles,pumpkins,0.06,33,A,09-01,01-31,5000
+courges,gourds,0.12,33,A,09-01,01-31,1500
+fraises,strawberries,0.22,34,A,05-01,07-31,20
+fraise des bois,wild strawberries,0.18,34,A,04-01,09-30,0.1
+concombres,cucumbers,0.19,35,B,05-01,10-31,500
+aubergines,eggplants,0.50,36,A,06-01,09-30,225
+poivrons,peppers,0.20,37,A,06-01,09-30,150
+piments,chilli peppers,0.20,37,A,,,2
+patate douce,sweet potatoes,0.20,38,A,,,200
+framboises,raspberries,0.26,41,B,06-01,08-31,4
+kiwis,kiwis,0.09,51,B,11-01,03-31,100
+haricots verts,green beans,0.06,56,A,06-01,10-31,0.4
+oranges,oranges,0.19,56,A,01-01,03-31,200
+orange sanguine,blood oranges,0.19,56,A,01-01,03-31,200
+tofu,soy,0.18,57,B,,,0
+petits pois,peas,0.42,59,A,05-01,07-31,0.04
+raisins,grapes,0.21,60,A,09-01,10-31,4
+bananes,bananas,0.13,79,B,01-01,04-30,120
+pommes,apples,0.09,80,A,08-01,04-30,170
+artichauts,artichokes,0.34,80,B,04-01,09-30,400
+myrtilles,blueberries,0.29,84,A,04-01,09-30,1.4
+pomme de terre,potatoes,0.13,90,A,01-01,12-31,170
+pêches,peaches,0.19,91,A,06-01,09-30,150
+pêche de vignes,vineyard peaches,0.19,91,A,10-31,12-31,80
+poires,pears,0.10,92,A,08-01,03-31,120
+fruits,fruits,0.12,96,A,,,0
+jus d'oranges,orange juice,0.20,101,C,,,0
+lait de vache,cow milk,0.18,102,C,,,0
+lait de chèvre,goat milk,0.27,100,,,,0
+lait de mouton,sheep milk,0.84,100,,,,0
+avocats,avocados,0.24,110,C,06-01,04-30,250
+abricots,apricots,0.04,128,A,06-01,09-30,55
+farine,flour,0.07,150,A,01-01,12-31,0
+blé,wheat,0.07,150,A,01-01,12-31,0
+pains,breads,0.12,160,A,,,0
+cerises,cherries,0.29,160,A,06-01,07-31,7
+soja,soy,0.20,180,A,01-01,12-31,0
+lait de soja,soy milk,0.80,180,B,01-01,12-31,0
+mangues,mangoes,0.44,180,B,01-01,12-31,400
+goyaves,guavas,0.44,180,B,01-01,03-31,90
+pâtes,pastas,0.14,184,A,01-01,12-31,0
+asperges,asparagus,0.70,215,A,04-01,06-30,40
+riz,rice,0.13,240,E,01-01,12-31,0.05
+cacahuètes,peanuts,0.14,278,D,,,1
+olives,olives,0.05,301,A,09-01,01-31,4
+oeufs,eggs,0.45,326,B,,,60
+amandes,almonds,0.29,400,E,,,0.9
+pois chiche,chickpea,0.08,417,B,07-01,09-30,0.4
+poulets,chickens,0.47,432,C,,,1500
+quinoa,quinoa,0.08,450,D,01-01,12-31,0
+fromages,cheeses,0.88,500,C,01-01,12-31,0
+haricots blancs,white beans,0,500,A,,,0.4
+noisettes,hazelnuts,0.45,530,E,,,1.5
+beurre,butter,0.98,550,C,01-01,12-31,0
+lentilles,lentils,0.07,580,A,07-01,08-31,0
+lardons porc,pork bacon,0.61,598,E,,,0
+porc,pork,0.66,598,C,,,0
+huile de colza,colza oil,0.25,680,B,01-01,12-31,0
+huile d'olive,olives oil,0.25,680,C,01-01,12-31,0
+huile de noix,nut oil,0.5,680,E,01-01,12-31,0
+huile de tournesol,sunfloyer oil,0.25,680,C,01-01,12-31,0
+thé,tea,0.06,880,A,01-01,12-31,0
+noix,nuts,0.20,906,E,,,5
+pistaches,pistachios,0.23,1160,D,,,0.4
+noix de cajoux,cashews,0.20,1420,D,,,2
+viande hachée,minced meat,4.33,1541,E,,,0
+steak haché,minced steak,4.33,1541,E,,,200
+boeuf,beef,4.33,1541,E,,,0
+grains de café,coffee beans,0.06,1580,E,,,0.06
+café,coffee,0.06,1580,E,,,0
+chocolats,chocolate,0.14,1700,D,,,0
+lait de coco,coconut milk,0.29,0,C,11-01,02-28,0
+noix de coco,coconuts,0.08,0,C,11-01,02-28,0
+eau en bouteille,bottled water,0.05,0.1,B,,,0
+eau du robinet,tap water,0.0001,0.1,A,,,0
+bière,beer,0.07,29,C,,,0
+vin,vine,0.11,87,C,,,0
+poireaux,leeks,0.105,35,A,09-01,03-31,150
+navets,turnips,0.068,35,A,06-01,09-30,200
+cresson,cress,0.16,25,A,04-01,12-31,200
+courgettes,zucchinis,0.086,35,A,06-01,09-30,250
+ail,garlic,0.045,27,B,04-01,08-31,0.007
+citrons,lemon,0.19,55,A,01-01,12-31,100
+pamplemousses,grapefruits,0.08,55,B,12-01,03-31,400
+moutarde,mustard,0.022,0,B,,,0
+ketchup,ketchup,0.154,0,B,,,0
+mayonnaise,mayonnaise,0.403,0,D,,,0
+rhum,rhum,0.11,87,C,,,0
+sel,salt,0.113,20,B,,,0

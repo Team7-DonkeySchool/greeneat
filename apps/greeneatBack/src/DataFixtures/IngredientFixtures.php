@@ -22,7 +22,7 @@ class IngredientFixtures extends Fixture
             //On crée une entité Ingredient
             $entity = new Ingredient();
             //On set chaque carac de l'entité avec les données du CSV
-            $entity->setName($row['name']);
+            $entity->setName($row['nameFR']); // put nameEN for english version
             $entity->setRatioCo2($row['ratioCo2']);
             $entity->setRatioH2o($row['ratioH2o']);
             $entity->setEcoscore($row['ecoscore']);

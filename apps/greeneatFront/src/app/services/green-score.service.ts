@@ -7,10 +7,11 @@ export class GreenScoreService {
 
   private eqKgCo2Max: number = 5;
   private consoH2oMax: number = 2000;
+  private numberPersons: number = 4;
 
   constructor() { }
 
-  /* function to calculate the green score */
+  /* functions to calculate the green score */
 
   public calculateGreenScore(ecoscore: string, ratioCo2: number, ratioH2o: number) {
 
@@ -50,7 +51,30 @@ export class GreenScoreService {
     return 100 - (ratioH2o / this.consoH2oMax * 100);
   }
 
+  public calculateEqCo2Ingredient(ratioCo2: number, weight: number) {
+
+    return ratioCo2 * weight * 10 / this.numberPersons;
+  }
+
+  public calculateConsoH2oIngredient(ratioH2o: number, weight: number) {
+
+    return ratioH2o * weight / 100 / this.numberPersons;
+  }
+
   /* function to ponderate the green score */
+
+  public calculatePonderation(infoFromRecipe: string[], coeff: number) {
+    
+    let ponderateGreenScore: number | undefined;
+
+    if (parseInt(infoFromRecipe[2]) * coeff > 100) {
+      ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[2])/100, 1.1);
+    } else {
+      ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[2])/100);
+    }
+
+    return ponderateGreenScore;
+  }
 
   public ponderateGreenScore(infoFromRecipe: string[]) {
 
@@ -58,66 +82,77 @@ export class GreenScoreService {
 
     switch (infoFromRecipe[0]) {
       case('grams'):
-        if (parseInt(infoFromRecipe[1]) > 100) {
-          ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[1])/100, 1.1);
-        } else {
-          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1])/100);
-        }
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 1);
         break;
       case('quantity'):
-        if (parseInt(infoFromRecipe[2]) > 100) {
-          ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[2])/100, 1.1);
-        } else {
-          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[2])/100);
-        }
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 1);
         break;
       case('kilos'):
-        if (parseInt(infoFromRecipe[1]) * 1000 > 100) {
-          ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[1]) * 1000/100, 1.1);
-        } else {
-          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 1000/100);
-        }
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 1000); /* a kilo weights 1000g */
         break;
       case('litres'):
-        if (parseInt(infoFromRecipe[1]) * 1000 > 100) {
-          ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[1]) * 1000/100, 1.1);
-        } else {
-          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 1000/100);
-        }
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 1000); /* a litre weights 1000g */
+        break;
+      case('decilitres'):
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 100); /* a decilitre weights 100g */
+        break;
+      case('centilitres'):
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 10); /* a centilitre weights 10g */
         break;
       case('soupSpoon'):
-        if (parseInt(infoFromRecipe[1]) * 15 > 100) { /* a soup spoon weights 15g */
-          ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[1]) * 15/100, 1.1);
-        } else {
-          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 15/100);
-        }
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 15); /* a soup spoon weights 15g */
         break;
       case('coffeeSpoon'):
-        if (parseInt(infoFromRecipe[1]) * 5 > 100) { /* a coffee spoon weights 5g */
-          ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[1]) * 5/100, 1.1);
-        } else {
-          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 5/100);
-        }
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 5); /* a coffee spoon weights 5g */
         break;
       case('pincee'):
-        if (parseInt(infoFromRecipe[1]) * 0.5 > 100) { /* a coffee spoon weights 0.5g */
-          ponderateGreenScore = 1 + 0.005 * Math.pow(parseInt(infoFromRecipe[1]) * 0.5/100, 1.2);
-        } else {
-          ponderateGreenScore = 1 - 0.01 * (1 - parseInt(infoFromRecipe[1]) * 0.5/100);
-        }
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 0.5); /* a pinch weights 0.5g */
         break;
     }
+
     return ponderateGreenScore;
+
   }
 
-  /* Case infoFromRecipe[0] === "quantity" */
+  /* Calculate equivament gramms" */
 
-  public quantityOrMetrics(infoFromRecipe: string[], weightPerUnity: number) {
-    if (infoFromRecipe[0] === 'quantity') {
-      let weightToInsert = 0;
-      weightToInsert = weightPerUnity * parseInt(infoFromRecipe[1]);
-      infoFromRecipe.splice(2, 0, weightToInsert.toString());
-    }
+  public replacesQuantityWithGrams(infoFromRecipe: string[], gramsElement: number) {
+    let weightToInsert = 0;
+    weightToInsert = gramsElement * parseInt(infoFromRecipe[1]);
+    infoFromRecipe.splice(2, 0, weightToInsert.toString());
+  }
+
+  public gramsEquivalent(infoFromRecipe: string[], weightPerUnity: number) {
+
+    switch (infoFromRecipe[0]) {
+      case('grams'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 1);
+        break;
+      case('quantity'):
+        this.replacesQuantityWithGrams(infoFromRecipe, weightPerUnity);
+        break;
+      case('kilos'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 1000);
+        break;
+      case('litres'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 1000);
+        break;
+      case('decilitres'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 100);
+        break;
+      case('centilitres'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 10);
+        break;
+      case('soupSpoon'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 15);
+        break;
+      case('coffeeSpoon'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 5);
+        break;
+      case('pincee'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 0.5);
+        break;
+      }
 
     return infoFromRecipe;
   }

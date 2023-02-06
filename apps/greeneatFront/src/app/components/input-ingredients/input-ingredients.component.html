@@ -8,11 +8,12 @@
                 <h4>Le saviez-vous ?</h4>
                 <span>Les manchots mâles draguent en offrant aux femelles des cailloux.</span>
             </div>
-            <h1 *ngIf="isGreenScoreVisible" [ngClass]="">Votre GreenScore : {{ greenScore }} / 100</h1>
+            <h1 *ngIf="isGreenScoreVisible" [ngClass]="{'orange': greenScore > 35 && greenScore <= 70, 'red': greenScore <= 35 }">Votre GreenScore : {{ greenScore }} / 100</h1>
             <h4 *ngIf="isGreenScoreVisible" [ngClass]="">Votre EcoScore : {{ ecoScore }} / 100</h4>
             <h4 *ngIf="isGreenScoreVisible" [ngClass]="">Votre CO2-Score : {{ co2Score }} / 100</h4>
+            <h6 *ngIf="isGreenScoreVisible" [ngClass]="">Equivalent de CO2 : {{ eqCo2 }} grammes par personne</h6>
             <h4 *ngIf="isGreenScoreVisible" [ngClass]="">Votre H2O-Score : {{ h2oScore }} / 100</h4>
-
+            <h6 *ngIf="isGreenScoreVisible" [ngClass]="">Consommation en eau : {{ consoH2o }} litres par personne</h6>
             <div class="greenButton">
                 <button (click)="onCalculateGreeScore()"
                     class="btn-calcul-text h1 bg-green justify-content-center">Calcule ton Green</button><br>

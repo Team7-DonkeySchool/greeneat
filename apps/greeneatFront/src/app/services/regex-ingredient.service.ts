@@ -25,8 +25,12 @@ export class RegexIngredientService {
   private regExpD2Rest: RegExp = /(?![d]['])\w*/g;  /* regex excluding "d'". For example in "d'oeuf", we only keep "oeuf" */
   private regExpKilos: RegExp = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
   private regExpKiloWord: RegExp = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
-  private regExpLitres: RegExp = /\d+[l][i]?[t]?[r]?[e]?[s]?/g;
-  private regExpLitreWord: RegExp = /[l][i]?[t]?[r]?[e]?[s]?/g;
+  private regExpLitres: RegExp = /\d+[l]|[l][i][t][r][e]?[s]?/g;
+  private regExpLitreWord: RegExp = /[l]|[l][i][t][r][e]?[s]?/g;
+  private regExpCentiLitres: RegExp = /\d+[c][l]/g;
+  private regExpCentiLitresWord: RegExp = /[c][l]/g;
+  private regExpDeciLitres: RegExp = /\d+[d][l]/g;
+  private regExpDeciLitresWord: RegExp = /[d][l]/g;
 
   constructor() { }
 
@@ -81,6 +85,14 @@ export class RegexIngredientService {
         } else if (element.match(this.regExpLitres)) {
           infoFromRecipe[0] = 'litres'; 
           this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 1);
+        
+        } else if (element.match(this.regExpDeciLitres)) {
+          infoFromRecipe[0] = 'decilitres'; 
+          this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 1);
+
+        } else if (element.match(this.regExpCentiLitres)) {
+          infoFromRecipe[0] = 'centilitres'; 
+          this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 1);
 
         } else if (element.match(this.regExpQuantity)) {
 
@@ -94,6 +106,14 @@ export class RegexIngredientService {
 
           } else if (recipeArray[index + 1].match(this.regExpLitreWord)) {
             infoFromRecipe[0] = 'litres';
+            this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
+
+          } else if (recipeArray[index + 1].match(this.regExpDeciLitresWord)) {
+            infoFromRecipe[0] = 'decilitres';
+            this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
+
+          } else if (recipeArray[index + 1].match(this.regExpCentiLitresWord)) {
+            infoFromRecipe[0] = 'centilitres';
             this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
 
           } else if (recipeArray[index + 1].match(this.regExpSpoon)) {
@@ -121,7 +141,7 @@ export class RegexIngredientService {
   
           } else {
               infoFromRecipe[0] = 'quantity';
-              infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(recipeArray[index + 1]);
+              infoFromRecipe.push(element.match(this.regExpQuantity).toString())  && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + 1));
           } 
         };
     });

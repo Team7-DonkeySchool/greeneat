@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { mergeMap, of } from 'rxjs';
+import { concatMap, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { GreenScoreService } from 'src/app/services/green-score.service';
 import { IngredientsService } from 'src/app/services/ingredients.service';
 import { RegexIngredientService } from 'src/app/services/regex-ingredient.service';
@@ -14,17 +14,22 @@ export class InputIngredientsComponent {
   public recipe?: string;
   public infoFromRecipe?: any;
   public ingredientInfosRequested?: any;
-  public greenScore?: number;
+  public greenScore: number = 0;
   public greenScoreTotal: number = 0;
   public isGreenScoreVisible: boolean = false;
-  public ecoScore?: number;
-  public co2Score?: number;
-  public h2oScore?: number;
+  public ecoScore: number = 0;
+  public co2Score: number = 0;
+  public h2oScore: number = 0;
   public ecoScoreTotal: number = 0;
   public co2ScoreTotal: number = 0;
   public h2oScoreTotal: number = 0;
+  public eqCo2: number = 0;
+  public consoH2o: number = 0;
+  public eqCo2Total: number = 0;
+  public consoH2oTotal: number = 0;
 
-  constructor (private greenScoreService: GreenScoreService, private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {}
+  constructor (private greenScoreService: GreenScoreService, private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {
+  }
 
   ngOnInit(): void {
     this.isGreenScoreVisible = false;
@@ -36,6 +41,8 @@ export class InputIngredientsComponent {
     this.ecoScoreTotal = 0;
     this.co2ScoreTotal = 0;
     this.h2oScoreTotal = 0;
+    this.eqCo2Total = 0;
+    this.consoH2oTotal = 0;
 
     /* Getting each line of the request */
 
@@ -60,23 +67,20 @@ export class InputIngredientsComponent {
 
       this.infoFromRecipe = this.regexIngredient.getInfoFromRecipeRequestLine(element);
 
-      /* creating an observable returning the name of the ingredient to deal with asynchronism of get function */
-
-      const nameOfIngredient$ = of(this.infoFromRecipe[2]);
-
       /* getting datas from database for ingredients */
 
-      nameOfIngredient$
-        .pipe(
-          mergeMap(ingredient => this.ingredientService.getIngredientsByName(ingredient))
-        )
+      this.ingredientService.getIngredientsByName(this.infoFromRecipe[2])
         .subscribe((data: any)=>{
           this.ingredientInfosRequested = data["hydra:member"][0];
 
+          this.infoFromRecipe = this.regexIngredient.getInfoFromRecipeRequestLine(element);
+
+          this.infoFromRecipe = this.greenScoreService.gramsEquivalent(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
+
+          console.log('infoFromRecipe', this.infoFromRecipe);
+          
           /* ponderation of greenScore depending on the grams / quantity */
 
-          this.infoFromRecipe = this.greenScoreService.quantityOrMetrics(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
-          
           ponderateGreenScoreByElement = this.greenScoreService.ponderateGreenScore(this.infoFromRecipe);
 
           if(!ponderateGreenScoreByElement) return;
@@ -84,11 +88,17 @@ export class InputIngredientsComponent {
           this.ecoScoreTotal += this.greenScoreService.calculateEcoScore(this.ingredientInfosRequested.ecoscore) / ponderateGreenScoreByElement;
           this.co2ScoreTotal += this.greenScoreService.calculateCo2Score(this.ingredientInfosRequested.ratioCo2) / ponderateGreenScoreByElement;
           this.h2oScoreTotal += this.greenScoreService.calculateH2oScore(this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
+          this.eqCo2Total += this.greenScoreService.calculateEqCo2Ingredient(this.ingredientInfosRequested.ratioCo2, this.infoFromRecipe[2]);
+          this.consoH2oTotal += this.greenScoreService.calculateConsoH2oIngredient(this.ingredientInfosRequested.ratioH2o, this.infoFromRecipe[2]);
 
-          this.greenScore = Math.round((this.greenScoreTotal / recipesIngredientFiltred.length));
-          this.ecoScore = Math.round((this.ecoScoreTotal / recipesIngredientFiltred.length));
-          this.co2Score = Math.round((this.co2ScoreTotal / recipesIngredientFiltred.length));
-          this.h2oScore = Math.round((this.h2oScoreTotal / recipesIngredientFiltred.length));
+          console.log(this.consoH2oTotal);
+
+          this.greenScore = Math.round(this.greenScoreTotal / recipesIngredientFiltred.length);
+          this.ecoScore = Math.round(this.ecoScoreTotal / recipesIngredientFiltred.length);
+          this.co2Score = Math.round(this.co2ScoreTotal / recipesIngredientFiltred.length);
+          this.h2oScore = Math.round(this.h2oScoreTotal / recipesIngredientFiltred.length);
+          this.eqCo2 = Math.round(this.eqCo2Total);
+          this.consoH2o = Math.round(this.consoH2oTotal);
 
         });
     });
