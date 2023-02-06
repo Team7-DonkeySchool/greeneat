@@ -26,7 +26,7 @@ export class RegexIngredientService {
   private regExpKilos: RegExp = /\d+[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
   private regExpKiloWord: RegExp = /[k][g]?[i]?[l]?[o]?[g]?[r]?[a]?[m]?[e]?[s]?/g;
   private regExpLitres: RegExp = /\d+[l]|[l][i][t][r][e]?[s]?/g;
-  private regExpLitreWord: RegExp = /[l]|[l][i][t][r][e]?[s]?/g;
+  private regExpLitreWord: RegExp = /^[l]|[l][i][t][r][e]?[s]?/g;
   private regExpCentiLitres: RegExp = /\d+[c][l]/g;
   private regExpCentiLitresWord: RegExp = /[c][l]/g;
   private regExpDeciLitres: RegExp = /\d+[d][l]/g;
@@ -39,13 +39,13 @@ export class RegexIngredientService {
   public pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray: any, infoFromRecipe: any[], element: any, index: number, place: number) {
     if (!element || !recipeArray) return;
     if (recipeArray[index + place].match(this.regExpDe)) { 
-      infoFromRecipe.push(element.match(this.regExpQuantity)) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place + 1));
+      infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place + 1));
     } else if (recipeArray[index + place].match(this.regExpD1)) {
-      infoFromRecipe.push(element.match(this.regExpQuantity)) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place + 1));
+      infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place + 1));
     } else if (recipeArray[index + place].match(this.regExpD2)) {
-      infoFromRecipe.push(element.match(this.regExpQuantity)) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place).match(this.regExpD2Rest)[1]);
+      infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place).match(this.regExpD2Rest)[1]);
     } else {
-      infoFromRecipe.push(element.match(this.regExpQuantity)) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place));
+      infoFromRecipe.push(element.match(this.regExpQuantity).toString()) && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + place));
     }
   }
 
@@ -141,7 +141,7 @@ export class RegexIngredientService {
   
           } else {
               infoFromRecipe[0] = 'quantity';
-              infoFromRecipe.push(element.match(this.regExpQuantity))  && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + 1));
+              infoFromRecipe.push(element.match(this.regExpQuantity).toString())  && infoFromRecipe.push(this.getEndOfArrayAsSentence(recipeArray, index + 1));
           } 
         };
     });
