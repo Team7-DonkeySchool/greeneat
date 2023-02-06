@@ -5,37 +5,54 @@ import { Injectable } from '@angular/core';
 })
 export class GreenScoreService {
 
+  private eqKgCo2Max: number = 5;
+  private consoH2oMax: number = 2000;
+
   constructor() { }
 
   /* function to calculate the green score */
 
   public calculateGreenScore(ecoscore: string, ratioCo2: number, ratioH2o: number) {
-    let ecoScoreNumber = 0;
+
+    return (this.calculateEcoScore(ecoscore) + this.calculateCo2Score(ratioCo2) + this.calculateH2oScore(ratioH2o)) / 3;
+  }
+
+  public calculateEcoScore(ecoscore: string) {
+    let ecoScoreNumber: number = 0;
     switch (ecoscore) {
       case('A'):
-        ecoScoreNumber = 34;
+        ecoScoreNumber = 100;
         break;
       case('B'):
-        ecoScoreNumber = 28;
+        ecoScoreNumber = 80;
         break;
       case('C'):
-        ecoScoreNumber = 21;
+        ecoScoreNumber = 60;
         break;
       case('D'):
-        ecoScoreNumber = 14;
+        ecoScoreNumber = 40;
         break;
       case('E'):
-        ecoScoreNumber = 7;
+        ecoScoreNumber = 20;
         break;
     }
-    return ecoScoreNumber + 33 - (ratioCo2/5 * 33) + 33 - (ratioH2o/2000 * 33);
+
+    return ecoScoreNumber;
+  }
+
+  public calculateCo2Score(ratioCo2: number) {
+
+    return 100 - (ratioCo2 / this.eqKgCo2Max * 100);
+  }
+
+  public calculateH2oScore(ratioH2o: number) {
+
+    return 100 - (ratioH2o / this.consoH2oMax * 100);
   }
 
   /* function to ponderate the green score */
 
   public ponderateGreenScore(infoFromRecipe: string[]) {
-
-    console.log('heyyyyyy', infoFromRecipe);
 
     let ponderateGreenScore: number | undefined;
 

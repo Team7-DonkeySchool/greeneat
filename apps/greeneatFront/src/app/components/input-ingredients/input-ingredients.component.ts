@@ -17,6 +17,12 @@ export class InputIngredientsComponent {
   public greenScore?: number;
   public greenScoreTotal: number = 0;
   public isGreenScoreVisible: boolean = false;
+  public ecoScore?: number;
+  public co2Score?: number;
+  public h2oScore?: number;
+  public ecoScoreTotal: number = 0;
+  public co2ScoreTotal: number = 0;
+  public h2oScoreTotal: number = 0;
 
   constructor (private greenScoreService: GreenScoreService, private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {}
 
@@ -27,6 +33,9 @@ export class InputIngredientsComponent {
   public onCalculateGreeScore(){
     this.greenScore = 0;
     this.greenScoreTotal = 0;
+    this.ecoScoreTotal = 0;
+    this.co2ScoreTotal = 0;
+    this.h2oScoreTotal = 0;
 
     /* Getting each line of the request */
 
@@ -69,13 +78,21 @@ export class InputIngredientsComponent {
           this.infoFromRecipe = this.greenScoreService.quantityOrMetrics(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
           
           ponderateGreenScoreByElement = this.greenScoreService.ponderateGreenScore(this.infoFromRecipe);
-          console.log(ponderateGreenScoreByElement);
 
           if(!ponderateGreenScoreByElement) return;
           this.greenScoreTotal += this.greenScoreService.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
+          this.ecoScoreTotal += this.greenScoreService.calculateEcoScore(this.ingredientInfosRequested.ecoscore) / ponderateGreenScoreByElement;
+          this.co2ScoreTotal += this.greenScoreService.calculateCo2Score(this.ingredientInfosRequested.ratioCo2) / ponderateGreenScoreByElement;
+          this.h2oScoreTotal += this.greenScoreService.calculateH2oScore(this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
+
           this.greenScore = Math.round((this.greenScoreTotal / recipesIngredientFiltred.length));
+          this.ecoScore = Math.round((this.ecoScoreTotal / recipesIngredientFiltred.length));
+          this.co2Score = Math.round((this.co2ScoreTotal / recipesIngredientFiltred.length));
+          this.h2oScore = Math.round((this.h2oScoreTotal / recipesIngredientFiltred.length));
+
         });
     });
+
     this.isGreenScoreVisible = true;
   }
 }
