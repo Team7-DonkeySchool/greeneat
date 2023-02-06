@@ -1,6 +1,7 @@
 name,ratioCo2,ratioH2o,ecoscore,seasonFrom,seasonTo,weightPerUnity
 sucre,0.07,20,B,01-01,12-31,0
 sucre de canne,0.07,50,D,01-01,12-31,0
+sel,0.07,20,B,01-01,12-31,0
 carottes,0.11,20,B,09-01,03-01,125
 tomates,0.29,21,A,06-01,09-30,130
 melons,0.09,22,B,06-01,09-30,800
@@ -89,6 +90,7 @@ eau en bouteille,0.05,0.1,B,,,0
 eau du robinet,0.0001,0.1,A,,,0
 bière,0.07,29,C,,,0
 vin,0.11,87,C,,,0
+rhum,0.11,87,C,,,0
 poireaux,0.105,35,A,09-01,03-31,150
 navets,0.068,35,A,06-01,09-30,200
 cresson,0.16,25,A,04-01,12-31,200
@@ -96,3 +98,4 @@ courgettes,0.086,35,A,06-01,09-30,250
 ail,0.045,27,B,04-01,08-31,0.007
 citrons,0.19,55,A,01-01,12-31,100
 pamplemousses,0.08,55,B,12-01,03-31,400
+moutarde,0.022,80,C,,,0
