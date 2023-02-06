@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GreenScoreService {
 
-  private eqKgCo2Max: number = 5;
-  private consoH2oMax: number = 2000;
-  private numberPersons: number = 4;
+  private eqKgCo2Max: number = environment.eqCo2Max;
+  private consoH2oMax: number = environment.consoH2oMax;
+  private numberPersons: number = environment.numberPersonsPerRecipe;
 
   constructor() { }
 
@@ -116,10 +117,10 @@ export class GreenScoreService {
 
   /* Calculate equivament gramms" */
 
-  public replacesQuantityWithGrams(infoFromRecipe: string[], gramsElement: number) {
+  public replacesQuantityWithGrams(infoFromRecipe: any[], gramsElement: number) {
     let weightToInsert = 0;
     weightToInsert = gramsElement * parseInt(infoFromRecipe[1]);
-    infoFromRecipe.splice(2, 0, weightToInsert.toString());
+    infoFromRecipe.splice(2, 0, weightToInsert);
   }
 
   public gramsEquivalent(infoFromRecipe: string[], weightPerUnity: number) {

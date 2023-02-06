@@ -3,6 +3,7 @@ import { concatMap, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { GreenScoreService } from 'src/app/services/green-score.service';
 import { IngredientsService } from 'src/app/services/ingredients.service';
 import { RegexIngredientService } from 'src/app/services/regex-ingredient.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-input-ingredients',
@@ -27,6 +28,7 @@ export class InputIngredientsComponent {
   public consoH2o: number = 0;
   public eqCo2Total: number = 0;
   public consoH2oTotal: number = 0;
+  public numberPersons: number = environment.numberPersonsPerRecipe;
 
   constructor (private greenScoreService: GreenScoreService, private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {
   }
@@ -74,11 +76,13 @@ export class InputIngredientsComponent {
           this.ingredientInfosRequested = data["hydra:member"][0];
 
           this.infoFromRecipe = this.regexIngredient.getInfoFromRecipeRequestLine(element);
+          
+          console.log(this.infoFromRecipe);
 
           this.infoFromRecipe = this.greenScoreService.gramsEquivalent(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
-
-          console.log('infoFromRecipe', this.infoFromRecipe);
           
+          console.log(this.infoFromRecipe, this.ingredientInfosRequested.weightPerUnity);
+
           /* ponderation of greenScore depending on the grams / quantity */
 
           ponderateGreenScoreByElement = this.greenScoreService.ponderateGreenScore(this.infoFromRecipe);
@@ -90,8 +94,6 @@ export class InputIngredientsComponent {
           this.h2oScoreTotal += this.greenScoreService.calculateH2oScore(this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
           this.eqCo2Total += this.greenScoreService.calculateEqCo2Ingredient(this.ingredientInfosRequested.ratioCo2, this.infoFromRecipe[2]);
           this.consoH2oTotal += this.greenScoreService.calculateConsoH2oIngredient(this.ingredientInfosRequested.ratioH2o, this.infoFromRecipe[2]);
-
-          console.log(this.consoH2oTotal);
 
           this.greenScore = Math.round(this.greenScoreTotal / recipesIngredientFiltred.length);
           this.ecoScore = Math.round(this.ecoScoreTotal / recipesIngredientFiltred.length);

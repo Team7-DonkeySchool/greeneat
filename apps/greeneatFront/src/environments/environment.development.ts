@@ -4,5 +4,8 @@ export const environment = {
     baseUrlOpenfoodFacts: 'https://world.openfoodfacts.org/cgi/',
     baseUrlApiPlatform: 'https://localhost:8000/api/',
     randomRecipeSpoonacular: 'https://api.spoonacular.com/recipes/random?number=1&tags=vegetarian,dessert',
-    imageSpoonacularBaseUrl: 'https://spoonacular.com/recipeImages/'
+    imageSpoonacularBaseUrl: 'https://spoonacular.com/recipeImages/',
+    numberPersonsPerRecipe: 4,
+    eqCo2Max: 5,
+    consoH2oMax: 2000,
 };
