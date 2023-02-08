@@ -38,7 +38,7 @@ class ElasticTestCommand extends Command
         $this->elastic->createIndex($input->getArgument('index_name'));
 
         $config = $this->elastic->getIndexConfig($input->getArgument('index_name'));
-        $this->elastic->indexDocuments($this->em->getRepository($config['repository'])->findAll(), $input->getArgument('index_name'));
+        $this->elastic->indexDocuments($this->em->getRepository($config['entity'])->findAll(), $input->getArgument('index_name'));
 
         return Command::SUCCESS;
     }

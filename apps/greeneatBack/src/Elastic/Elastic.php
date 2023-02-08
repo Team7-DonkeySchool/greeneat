@@ -56,7 +56,7 @@ class Elastic
     public function createIndex(string $indexName)
     {
         $config = $this->getIndexConfig($indexName);
-        unset($config['repository']);
+        unset($config['entity']);
 
         $this->getClient()
                 ->indices()

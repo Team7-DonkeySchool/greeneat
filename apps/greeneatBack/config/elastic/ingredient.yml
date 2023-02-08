@@ -1,5 +1,5 @@
 index: ingredient
-repository: 'App\Repository\IngredientRepository'
+entity: 'App\Entity\Ingredient'
 
 body:
     settings: 
