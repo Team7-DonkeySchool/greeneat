@@ -15,13 +15,9 @@ class TagFixtures extends Fixture
         $manager->persist($cocktail);
         $manager->flush();
 
-        $manager->flush();
-
         $mocktail = new Tag();
         $mocktail->setName('mocktails');
         $manager->persist($mocktail);
-        $manager->flush();
-
         $manager->flush();
     }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { clippingParents } from '@popperjs/core';
+import { mergeMap, of } from 'rxjs';
 import { ApiSpoonacularService } from 'src/app/services/api-spoonacular.service';
 import { Recipe } from 'src/app/typings';
 
@@ -25,12 +27,25 @@ export class SeasonalRecipesComponent {
   ngOnInit(): void {
     this.recipeArray = [];
     for(let i = 0; i < 2; i++) {
-    this.apiSpoonService.getApiSpoonacularRandom().subscribe((data)=>{
-      this.recipe = data.recipes;
+        this.apiSpoonService.getApiSpoonacularRandom()
+          .pipe(
+            mergeMap(
+              (data: any) => {
+                console.log(data);
+                this.recipe = data.recipes;
+                if(!this.recipe) return of();
+                this.recipeArray?.push(this.recipe[0]);
+                
+                return this.apiSpoonService.postApiSpoonacularData(data);
+              }
+            )
+          )
+          .subscribe((data: any) => {
+            // console.log(data);
+          })
+        }
+      }
+    
 
-      if(!this.recipeArray) return;
-      this.recipeArray.push(this.recipe[0]);
-      });
-    }
   }
-}
+

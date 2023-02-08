@@ -5,18 +5,25 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[ApiResource(
     operations: [
         new Get(),
         new GetCollection(),
+        new Post(),
+        new Put(),
     ],
+    normalizationContext: ['groups' => 'read_recipe'],
+    denormalizationContext: ['groups' => 'write_recipe']
 )
 ]
 
@@ -25,25 +32,31 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read_recipe', 'write_recipe'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_recipe', 'write_recipe'])]
     private ?string $name = null;
 
-
+    #[Groups(['write_recipe'])]
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeImage::class)]
     private Collection $recipeImages;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['write_recipe'])]
     private ?Category $categoryRecipe = null;
 
+    #[Groups(['write_recipe'])]
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'recipes', cascade: ['persist'])]
     private Collection $Tag;
 
+    #[Groups(['write_recipe'])]
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: LinkedIngredients::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $linkedIngredients;
 
+    #[Groups(['write_recipe'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 

@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\RecipeImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RecipeImageRepository::class)]
 #[ApiResource(
@@ -22,14 +23,18 @@ class RecipeImage
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['write_recipe'])]
     private ?int $id = null;
 
+    #[Groups(['write_recipe'])]
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
+    #[Groups(['write_recipe'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $alt = null;
 
+    #[Groups(['write_recipe'])]
     #[ORM\Column]
     private ?int $position = null;
 
