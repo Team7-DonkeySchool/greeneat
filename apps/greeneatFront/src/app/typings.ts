@@ -9,6 +9,10 @@ export interface RecipeArray {
     recipes: Recipe[],
 }
 
+export interface RecipeSpoonacular {
+    
+}
+
 export interface Ingredient {
     id: number,
     name: string,

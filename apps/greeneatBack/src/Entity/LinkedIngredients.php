@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\LinkedIngredientsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 // /**
 //  * @ORM\Entity(repositoryClass=LinkedIngredientsRepository::class)
@@ -27,6 +28,7 @@ class LinkedIngredients
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['write_recipe'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredient')]

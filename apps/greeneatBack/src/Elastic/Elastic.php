@@ -2,12 +2,9 @@
 
 namespace App\Elastic;
 
-use Elastic\Elasticsearch\ClientBuilder;
-use Elastic\Elasticsearch\Client;
 use Elasticsearch\Client as ElasticsearchClient;
 use Elasticsearch\ClientBuilder as ElasticsearchClientBuilder;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -58,12 +55,15 @@ class Elastic
 
     public function createIndex(string $indexName)
     {
+        $config = $this->getIndexConfig($indexName);
+        unset($config['repository']);
+
         $this->getClient()
                 ->indices()
-                ->create($this->getIndexConfig($indexName));
+                ->create($config);
     }
 
-    private function getIndexConfig(string $indexName): array
+    public function getIndexConfig(string $indexName): array
     {
         return Yaml::parseFile($this->configDir.DIRECTORY_SEPARATOR.$indexName.'.yml');
 
