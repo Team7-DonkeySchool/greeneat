@@ -5,6 +5,10 @@ export interface Recipe {
     extendedIngredients: Ingredient[],
 }
 
+export interface RecipeSpoonacular {
+    
+}
+
 export interface RecipeArray {
     recipes: Recipe[],
 }

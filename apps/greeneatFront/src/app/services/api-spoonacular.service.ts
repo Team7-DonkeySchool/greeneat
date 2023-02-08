@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ArrayRecipes, Recipe, RecipeArray } from '../typings';
+import { ArrayRecipes, Recipe, RecipeArray, RecipeSpoonacular } from '../typings';
 import { ApiService } from './api.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -40,6 +40,11 @@ export class ApiSpoonacularService extends ApiService {
 
     return this.http
       .get<RecipeArray>(`${environment.randomRecipeSpoonacular}`, {params: queryParams});
+  }
+
+  public postApiSpoonacularData(recipe: RecipeSpoonacular) {
+    const headers = {'content-type': 'application/json'};
+    return this.http.post(`url`, recipe, {'headers': headers});
   }
 
 }
