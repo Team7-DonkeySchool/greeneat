@@ -59,6 +59,11 @@ class SpoonacularApiCommand extends Command
     //     }
     // }
 
+    // private function getLastRecipeId(): int
+    // {
+    //     $lastRecipe = $this->manager->getRepository(Recipe::class)->findOneBy([], ["id" => "DESC"]);
+    //     return $lastRecipe->getId();
+    // }
 
     private function persistRecipeInDB(array $content): void
     {
