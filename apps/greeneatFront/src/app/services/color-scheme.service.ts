@@ -27,21 +27,22 @@ export class ColorSchemeService {
     }
 
     _setColorScheme(scheme: string) {
-        // this.colorScheme = scheme;
+        this.colorScheme = scheme;
+        scheme = 'light'
         // // Save prefers-color-scheme to localStorage
         // localStorage.setItem('prefers-color', scheme);
     }
 
     _getColorScheme() {
-        // const localStorageColorScheme = localStorage.getItem('prefers-color');
-        // // Check if any prefers-color-scheme is stored in localStorage
-        // if (localStorageColorScheme) {
-        //     // Save prefers-color-scheme from localStorage
-        //     this.colorScheme = localStorageColorScheme;
-        // } else {
-        //     // If no prefers-color-scheme is stored in localStorage, try to detect OS default prefers-color-scheme
-        //     this._detectPrefersColorScheme();
-        // }
+        const localStorageColorScheme = this.colorScheme;
+        // Check if any prefers-color-scheme is stored in localStorage
+        if (localStorageColorScheme) {
+            // Save prefers-color-scheme from localStorage
+            this.colorScheme = localStorageColorScheme;
+        } else {
+            // If no prefers-color-scheme is stored in localStorage, try to detect OS default prefers-color-scheme
+            this._detectPrefersColorScheme();
+        }
     }
 
     load() {
@@ -57,7 +58,7 @@ export class ColorSchemeService {
         this.renderer.addClass(document.body, this.colorSchemePrefix + scheme);
     }
 
-    currentActive() {
+    currentActive() { 
         return this.colorScheme;
     }
 
