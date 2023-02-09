@@ -2,12 +2,10 @@
 <section class="seasonal-recipe container" id="seasonal-recipe">
     <div class="row row-cols-2 row-cols-md-4 g-4">
         <div class="col" *ngFor="let recipe of recipeArray; let i = index">
-            <div class="card">
+            <div class="card h-100">
+                <img [src]="recipe.image" class="card-img" [alt]="recipe.image">
                 <div class="card-body">
-                    <img [src]="recipe.image" class="card-img" [alt]="recipe.image">
-
                     <h5 class="card-title">{{ recipe.title }}</h5>
-                    <p class="card-text">30 Minutes/tags</p>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
