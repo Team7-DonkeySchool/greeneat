@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Category;
 use App\Entity\Ingredient;
+use App\Entity\LinkedIngredients;
 use App\Entity\Recipe;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class SpoonacularApiCommand extends Command
 {
-    public function __construct(private CategoryRepository $categoryRepository, private Recipe $recipe, private HttpClientInterface $client, private EntityManagerInterface $manager)
+    public function __construct(private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
     {
         parent::__construct();
     }
@@ -44,16 +45,33 @@ class SpoonacularApiCommand extends Command
 
     private function persistRecipeInDB(array $content): void
     {
-        $category = $this->categoryRepository->find(2); //to change according to the category needed
+        // persist category
+        $category = $this->categoryRepository->find(2); // TO DO // change according to the category needed
 
+        // persist category
         $recipe = new Recipe();
         $recipe->setName($content["title"]);
         $recipe->setCategoryRecipe($category);
         $recipe->setDescription($content["instructions"]);
         $recipe->setPartner("spoonacular");
         $recipe->setPartnerId($content["id"]);
-
         $this->manager->persist($recipe);
+
+        // persist ingredients & linkedIngredients
+        if ($content["extendedIngredients"]) {
+            foreach ($content["extendedIngredients"] as $ingredientRecipe) {
+                $ingredient = new Ingredient();
+                $ingredient->setName($ingredientRecipe["name"]);
+                $this->manager->persist($ingredient);
+
+                $linkedIngredient = new LinkedIngredients();
+                $linkedIngredient->setIngredient($ingredient);
+                $linkedIngredient->setRecipe($recipe);
+                $linkedIngredient->setQuantity(floatval($ingredientRecipe["measures"]["metric"]["amount"]));
+                $linkedIngredient->setUnit($ingredientRecipe["measures"]["metric"]["unitLong"]);
+                $this->manager->persist($linkedIngredient);
+            }
+        }
         $this->manager->flush();
     }
 
