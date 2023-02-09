@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { ColorSchemeService } from './services/color-scheme.service';
 
 @Component({
@@ -8,8 +10,12 @@ import { ColorSchemeService } from './services/color-scheme.service';
 })
 export class AppComponent {
   title = 'greeneatFront';
-  constructor(private colorSchemeService: ColorSchemeService) {
+  static isBrowser = new BehaviorSubject<boolean>(false);
+
+  constructor(private colorSchemeService: ColorSchemeService, @Inject(PLATFORM_ID) private platformId: any) {
+    AppComponent.isBrowser.next(isPlatformBrowser(platformId));
     // Load Color Scheme
     this.colorSchemeService.load();
   }
+  
 }

@@ -16,24 +16,25 @@ export class ColorSchemeService {
     }
 
     _detectPrefersColorScheme() {
-        // Detect if prefers-color-scheme is supported
-        if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
-            // Set colorScheme to Dark if prefers-color-scheme is dark. Otherwise, set it to Light.
-            this.colorScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        } else {
-            // If the browser does not support prefers-color-scheme, set the default to dark.
-            this.colorScheme = 'light';
-        }
+        // // Detect if prefers-color-scheme is supported
+        // if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
+        //     // Set colorScheme to Dark if prefers-color-scheme is dark. Otherwise, set it to Light.
+        //     this.colorScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        // } else {
+        //     // If the browser does not support prefers-color-scheme, set the default to dark.
+        //     this.colorScheme = 'light';
+        // }
     }
 
     _setColorScheme(scheme: string) {
         this.colorScheme = scheme;
-        // Save prefers-color-scheme to localStorage
-        localStorage.setItem('prefers-color', scheme);
+        scheme = 'light'
+        // // Save prefers-color-scheme to localStorage
+        // localStorage.setItem('prefers-color', scheme);
     }
 
     _getColorScheme() {
-        const localStorageColorScheme = localStorage.getItem('prefers-color');
+        const localStorageColorScheme = this.colorScheme;
         // Check if any prefers-color-scheme is stored in localStorage
         if (localStorageColorScheme) {
             // Save prefers-color-scheme from localStorage
@@ -51,13 +52,13 @@ export class ColorSchemeService {
 
     update(scheme: string) {
         this._setColorScheme(scheme);
-        // Remove the old color-scheme class
+        // // Remove the old color-scheme class
         this.renderer.removeClass(document.body, this.colorSchemePrefix + (this.colorScheme === 'dark' ? 'light' : 'dark'));
-        // Add the new / current color-scheme class
+        // // Add the new / current color-scheme class
         this.renderer.addClass(document.body, this.colorSchemePrefix + scheme);
     }
 
-    currentActive() {
+    currentActive() { 
         return this.colorScheme;
     }
 
