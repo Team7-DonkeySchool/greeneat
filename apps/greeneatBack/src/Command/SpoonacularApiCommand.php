@@ -7,6 +7,7 @@ use App\Entity\Ingredient;
 use App\Entity\LinkedIngredients;
 use App\Entity\Recipe;
 use App\Repository\CategoryRepository;
+use App\Repository\IngredientRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -23,7 +24,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class SpoonacularApiCommand extends Command
 {
-    public function __construct(private RecipeRepository $recipeRepository, private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
+    public function __construct(private IngredientRepository $ingredientRepository, private RecipeRepository $recipeRepository, private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
     {
         parent::__construct();
     }
@@ -58,20 +59,32 @@ class SpoonacularApiCommand extends Command
         $category = $this->categoryRepository->find(2); // TO DO // change according to the category needed
 
         // persist recipe
-        $recipe = new Recipe();
-        $recipe->setName($recipeSpoonacular["title"]);
-        $recipe->setCategoryRecipe($category);
-        $recipe->setDescription($recipeSpoonacular["instructions"]);
-        $recipe->setPartner("spoonacular");
-        $recipe->setPartnerId($recipeSpoonacular["id"]);
-        $this->manager->persist($recipe);
+        $title = $recipeSpoonacular["title"];
+
+        // checking if recipe is already in recipes table
+        if (!$this->recipeRepository->findBy($title)) {
+            $recipe = new Recipe();
+            $recipe->setName($title);
+            $recipe->setCategoryRecipe($category);
+            $recipe->setDescription($recipeSpoonacular["instructions"]);
+            $recipe->setPartner("spoonacular");
+            $recipe->setPartnerId($recipeSpoonacular["id"]);
+            $this->manager->persist($recipe);
+        }
 
         // persist ingredients & linkedIngredients
         if ($recipeSpoonacular["extendedIngredients"]) {
             foreach ($recipeSpoonacular["extendedIngredients"] as $ingredientRecipe) {
+
+                $name = $ingredientRecipe["name"];
+
                 $ingredient = new Ingredient();
-                $ingredient->setName($ingredientRecipe["name"]);
-                $this->manager->persist($ingredient);
+                $ingredient->setName($name);
+
+                // checking if ingredient is already in ingredients table
+                if (!$this->ingredientRepository->findBy($name)) {
+                    $this->manager->persist($ingredient);
+                }
 
                 $linkedIngredient = new LinkedIngredients();
                 $linkedIngredient->setIngredient($ingredient);
