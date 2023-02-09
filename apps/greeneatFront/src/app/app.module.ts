@@ -13,6 +13,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputIngredientsComponent } from './components/input-ingredients/input-ingredients.component';
 import { SeasonalRecipesComponent } from './components/seasonal-recipes/seasonal-recipes.component';
+import { PanelRecipeComponent } from './components/panel-recipe/panel-recipe.component';
+import { YourRecipeComponent } from './components/your-recipe/your-recipe.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { SeasonalRecipesComponent } from './components/seasonal-recipes/seasonal
     NavbarComponent,
     InputIngredientsComponent,
     SeasonalRecipesComponent,
+    PanelRecipeComponent,
+    YourRecipeComponent,
   ],
   imports: [
     BrowserModule,

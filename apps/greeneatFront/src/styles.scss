@@ -18,6 +18,7 @@
   --secondary-opa: #bffcfbde;
   --background: url("assets/img/bg-light.svg");
   --title: #000000;
+  
   --display-title-dark: none;
   --display-title-light: block;
 }
@@ -45,6 +46,7 @@
 
 .color-scheme-light {
   --bs-body-bg: white;
+  --bs-light-rgb: 0, 0, 0;
   transition: 1s;
 }
 
@@ -58,11 +60,15 @@
 }
 
 .bg-gray {
-    background: var(--tertiary);
+    background: var(--tertiary) ;
 }
 
 .text-green {
     color: var(--primary);
+}
+
+.text-black {
+    color: black;
 }
 
 
@@ -88,6 +94,36 @@ a {
   text-decoration: none !important;
   color: black !important;
 }
+
+
+// CARD ############################################################################################################
+
+.card-title {
+  color: black;
+}
+
+.card {
+  border: 0px;
+  --bs-card-border-color: 0px !important;
+}
+
+.card {
+  padding: 7%;
+  background: var(--primary) !important;
+  border-radius: var(--border-radius-s);
+  transition: all 0.5s ease-in-out;
+}
+
+.card:hover {
+  scale: 1.1;
+  background: var(--secondary);
+}
+
+.card img {
+  border-radius: var(--border-radius-s);
+  margin-bottom: 5%;
+}
+
 
 
 // BUTTONS ############################################################################################################
