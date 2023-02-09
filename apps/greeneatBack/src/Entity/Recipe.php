@@ -60,6 +60,12 @@ class Recipe
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $partner = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $partnerId = null;
+
 
     public function __construct()
     {
@@ -191,6 +197,30 @@ class Recipe
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPartner(): ?string
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?string $partner): self
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    public function getPartnerId(): ?string
+    {
+        return $this->partnerId;
+    }
+
+    public function setPartnerId(?string $partnerId): self
+    {
+        $this->partnerId = $partnerId;
 
         return $this;
     }
