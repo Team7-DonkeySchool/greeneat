@@ -100,6 +100,9 @@ export class GreenScoreService {
       case('centilitres'):
         ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 10); /* a centilitre weights 10g */
         break;
+      case('millilitres'):
+        ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 1); /* a millilitre weights 1g */
+        break;
       case('soupSpoon'):
         ponderateGreenScore = this.calculatePonderation(infoFromRecipe, 15); /* a soup spoon weights 15g */
         break;
@@ -143,6 +146,9 @@ export class GreenScoreService {
         break;
       case('centilitres'):
         this.replacesQuantityWithGrams(infoFromRecipe, 10);
+        break;
+      case('millilitres'):
+        this.replacesQuantityWithGrams(infoFromRecipe, 1);
         break;
       case('soupSpoon'):
         this.replacesQuantityWithGrams(infoFromRecipe, 15);

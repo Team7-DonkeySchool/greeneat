@@ -31,6 +31,8 @@ export class RegexIngredientService {
   private regExpCentiLitresWord: RegExp = /[c][l]/g;
   private regExpDeciLitres: RegExp = /\d+[d][l]/g;
   private regExpDeciLitresWord: RegExp = /[d][l]/g;
+  private regExpMilliLitres: RegExp = /\d+[m][l]/g;
+  private regExpMilliLitresWord: RegExp = /[m][l]/g;
 
   constructor() { }
 
@@ -94,6 +96,10 @@ export class RegexIngredientService {
           infoFromRecipe[0] = 'centilitres'; 
           this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 1);
 
+        } else if (element.match(this.regExpMilliLitres)) {
+          infoFromRecipe[0] = 'millilitres'; 
+          this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 1);
+
         } else if (element.match(this.regExpQuantity)) {
 
           if (recipeArray[index + 1].match(this.regExpGramWord)) {
@@ -114,6 +120,10 @@ export class RegexIngredientService {
 
           } else if (recipeArray[index + 1].match(this.regExpCentiLitresWord)) {
             infoFromRecipe[0] = 'centilitres';
+            this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
+
+          } else if (recipeArray[index + 1].match(this.regExpMilliLitresWord)) {
+            infoFromRecipe[0] = 'millilitres';
             this.pushInfoIntoInfoFromRecipeWithDeOrD(recipeArray, infoFromRecipe, element, index, 2);
 
           } else if (recipeArray[index + 1].match(this.regExpSpoon)) {

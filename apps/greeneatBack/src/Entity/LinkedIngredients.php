@@ -40,7 +40,7 @@ class LinkedIngredients
     private ?Recipe $recipe = null;
 
     #[ORM\Column(nullable:true)]
-    private ?int $quantity = null;
+    private ?float $quantity = null;
 
     
     #[ORM\Column(nullable:true)]
@@ -80,12 +80,12 @@ class LinkedIngredients
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity(): ?float
     {
         return $this->quantity;
     }
 
-    public function setQuantity(?int $quantity): self
+    public function setQuantity(?float $quantity): self
     {
         $this->quantity = $quantity;
 
