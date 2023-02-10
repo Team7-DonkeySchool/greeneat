@@ -48,7 +48,7 @@ class SpoonacularApiCommand extends Command
     private function getLastRecipeSpoonacularId(): int
     {
         $lastRecipe = $this->recipeRepository->findOneBy([], ['id' => 'desc']);
-        $lastId = $lastRecipe->getPartnerId();
+        $lastRecipe ? $lastId = $lastRecipe->getPartnerId() : $lastId = 0;
 
         return $lastId;
     }
@@ -62,15 +62,15 @@ class SpoonacularApiCommand extends Command
         $title = $recipeSpoonacular["title"];
 
         // checking if recipe is already in recipes table
-        if (!$this->recipeRepository->findBy($title)) {
-            $recipe = new Recipe();
-            $recipe->setName($title);
-            $recipe->setCategoryRecipe($category);
-            $recipe->setDescription($recipeSpoonacular["instructions"]);
-            $recipe->setPartner("spoonacular");
-            $recipe->setPartnerId($recipeSpoonacular["id"]);
-            $this->manager->persist($recipe);
-        }
+        if ($this->recipeRepository->findOneBy(array('name' => $title))) return;
+
+        $recipe = new Recipe();
+        $recipe->setName($title);
+        $recipe->setCategoryRecipe($category);
+        $recipe->setDescription($recipeSpoonacular["instructions"]);
+        $recipe->setPartner("spoonacular");
+        $recipe->setPartnerId($recipeSpoonacular["id"]);
+        $this->manager->persist($recipe);
 
         // persist ingredients & linkedIngredients
         if ($recipeSpoonacular["extendedIngredients"]) {
@@ -78,11 +78,12 @@ class SpoonacularApiCommand extends Command
 
                 $name = $ingredientRecipe["name"];
 
-                $ingredient = new Ingredient();
-                $ingredient->setName($name);
-
                 // checking if ingredient is already in ingredients table
-                if (!$this->ingredientRepository->findBy($name)) {
+                if ($this->ingredientRepository->findOneBy(array('name' => $name))) {
+                    $ingredient = $this->ingredientRepository->findOneBy(array('name' => $name));
+                } else {
+                    $ingredient = new Ingredient();
+                    $ingredient->setName($name);
                     $this->manager->persist($ingredient);
                 }
 
@@ -108,9 +109,15 @@ class SpoonacularApiCommand extends Command
         $offset = 4;
         
         for ($i = $startBoucle; $i <= $startBoucle + $offset; $i++) {
-            $recipeSpoonacular = $this->fetchSpoonacularRecipe($i);
+            try {
+                $recipeSpoonacular = $this->fetchSpoonacularRecipe($i);
+            } catch(\Exception $e) {
+                
+            }
+
             $this->persistRecipeInDB($recipeSpoonacular);
         }
+            
 
         return Command::SUCCESS;
     }
