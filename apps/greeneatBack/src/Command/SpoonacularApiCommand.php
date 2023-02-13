@@ -2,16 +2,16 @@
 
 namespace App\Command;
 
-use App\Entity\Category;
 use App\Entity\Ingredient;
 use App\Entity\LinkedIngredients;
 use App\Entity\Recipe;
 use App\Repository\CategoryRepository;
+use App\Repository\IngredientRepository;
+use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -22,12 +22,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class SpoonacularApiCommand extends Command
 {
-    public function __construct(private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
+    public function __construct(private LoggerInterface $loggerInterface, private IngredientRepository $ingredientRepository, private RecipeRepository $recipeRepository, private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
     {
         parent::__construct();
     }
 
-    private function fetchSpoonacularRecipes(int $id): array
+    private function fetchSpoonacularRecipe(int $id): array
     {
         $response = $this->client->request(
             "GET",
@@ -37,32 +37,66 @@ class SpoonacularApiCommand extends Command
         // $statusCode = $response->getStatusCode();
         // $contentType = $response->getHeaders()['content-type'][0];
 
-        $content = $response->getContent();
-        $content = $response->toArray();
+        $recipeSpoonacular = $response->getContent();
+        $recipeSpoonacular = $response->toArray();
 
-        return $content;
+        return $recipeSpoonacular;
     }
 
-    private function persistRecipeInDB(array $content): void
+    private function getLastRecipeSpoonacularId(): int
+    {
+        $lastRecipe = $this->recipeRepository->findOneBy([], ['id' => 'desc']);
+        $lastRecipe ? $lastId = $lastRecipe->getPartnerId() : $lastId = 0;
+
+        return $lastId;
+    }
+
+    private function persistRecipeInDB(array $recipeSpoonacular): void
     {
         // persist category
-        $category = $this->categoryRepository->find(2); // TO DO // change according to the category needed
 
-        // persist category
+        $dishType = $recipeSpoonacular["dishTypes"];
+
+        if (in_array("starter", $dishType)) {
+            $category = $this->categoryRepository->find(1);
+        } else if (in_array("lunch", $dishType) || in_array("side dish", $dishType)) {
+            $category = $this->categoryRepository->find(2);
+        } else if (in_array("dessert", $dishType)) {
+            $category = $this->categoryRepository->find(3);
+        } else if (in_array("drink", $dishType) || in_array("beverage", $dishType)) {
+            $category = $this->categoryRepository->find(4);
+        } else {
+            $category = $this->categoryRepository->find(2);
+        }
+
+        // persist recipe
+        $title = $recipeSpoonacular["title"];
+
+        // checking if recipe is already in recipes table
+        if ($this->recipeRepository->findOneBy(array('name' => $title))) return;
+
         $recipe = new Recipe();
-        $recipe->setName($content["title"]);
+        $recipe->setName($title);
         $recipe->setCategoryRecipe($category);
-        $recipe->setDescription($content["instructions"]);
+        $recipe->setDescription($recipeSpoonacular["instructions"]);
         $recipe->setPartner("spoonacular");
-        $recipe->setPartnerId($content["id"]);
+        $recipe->setPartnerId($recipeSpoonacular["id"]);
         $this->manager->persist($recipe);
 
         // persist ingredients & linkedIngredients
-        if ($content["extendedIngredients"]) {
-            foreach ($content["extendedIngredients"] as $ingredientRecipe) {
-                $ingredient = new Ingredient();
-                $ingredient->setName($ingredientRecipe["name"]);
-                $this->manager->persist($ingredient);
+        if ($recipeSpoonacular["extendedIngredients"]) {
+            foreach ($recipeSpoonacular["extendedIngredients"] as $ingredientRecipe) {
+
+                $name = $ingredientRecipe["name"];
+
+                // checking if ingredient is already in ingredients table
+                if ($this->ingredientRepository->findOneBy(array('name' => $name))) {
+                    $ingredient = $this->ingredientRepository->findOneBy(array('name' => $name));
+                } else {
+                    $ingredient = new Ingredient();
+                    $ingredient->setName($name);
+                    $this->manager->persist($ingredient);
+                }
 
                 $linkedIngredient = new LinkedIngredients();
                 $linkedIngredient->setIngredient($ingredient);
@@ -77,15 +111,24 @@ class SpoonacularApiCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('id', InputArgument::REQUIRED);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $recipeSpoonacular = $this->fetchSpoonacularRecipes($input->getArgument('id'));
+        //dd($this->fetchSpoonacularRecipe(645479));
 
-        $this->persistRecipeInDB($recipeSpoonacular);
-    
+        $lastSpoonacularRecipeId = $this->getLastRecipeSpoonacularId();
+        $startBoucle = $lastSpoonacularRecipeId + 1;
+        $offset = 20;
+        
+        for ($i = $startBoucle; $i <= $startBoucle + $offset; $i++) {
+            try {
+                $recipeSpoonacular = $this->fetchSpoonacularRecipe($i);
+                $this->persistRecipeInDB($recipeSpoonacular);
+            } catch(\Exception $e) {
+            }
+        }
+
         return Command::SUCCESS;
     }
 }
