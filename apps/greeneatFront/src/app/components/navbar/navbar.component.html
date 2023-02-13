@@ -1,5 +1,5 @@
 <img class="header" src="../../assets/img/wave.svg" alt="">
 
 <div class="theme" *ngFor="let theme of themes" (click)="setTheme(theme.name)">
-    <img src="{{ theme.icon }}" alt="{{ theme.name }}">
+    <img  *ngIf="colorSchemeService.currentActive() === theme.name" src="{{ theme.icon }}" alt="{{ theme.name }}">
 </div>
