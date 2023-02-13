@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use App\Entity\Category;
 use App\Entity\Ingredient;
 use App\Entity\LinkedIngredients;
 use App\Entity\Recipe;
@@ -10,10 +9,9 @@ use App\Repository\CategoryRepository;
 use App\Repository\IngredientRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -24,7 +22,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class SpoonacularApiCommand extends Command
 {
-    public function __construct(private IngredientRepository $ingredientRepository, private RecipeRepository $recipeRepository, private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
+    public function __construct(private LoggerInterface $loggerInterface, private IngredientRepository $ingredientRepository, private RecipeRepository $recipeRepository, private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
     {
         parent::__construct();
     }
@@ -56,7 +54,20 @@ class SpoonacularApiCommand extends Command
     private function persistRecipeInDB(array $recipeSpoonacular): void
     {
         // persist category
-        $category = $this->categoryRepository->find(2); // TO DO // change according to the category needed
+
+        $dishType = $recipeSpoonacular["dishTypes"];
+
+        if (in_array("starter", $dishType)) {
+            $category = $this->categoryRepository->find(1);
+        } else if (in_array("lunch", $dishType) || in_array("side dish", $dishType)) {
+            $category = $this->categoryRepository->find(2);
+        } else if (in_array("dessert", $dishType)) {
+            $category = $this->categoryRepository->find(3);
+        } else if (in_array("drink", $dishType) || in_array("beverage", $dishType)) {
+            $category = $this->categoryRepository->find(4);
+        } else {
+            $category = $this->categoryRepository->find(2);
+        }
 
         // persist recipe
         $title = $recipeSpoonacular["title"];
@@ -104,20 +115,19 @@ class SpoonacularApiCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        //dd($this->fetchSpoonacularRecipe(645479));
+
         $lastSpoonacularRecipeId = $this->getLastRecipeSpoonacularId();
         $startBoucle = $lastSpoonacularRecipeId + 1;
-        $offset = 4;
+        $offset = 20;
         
         for ($i = $startBoucle; $i <= $startBoucle + $offset; $i++) {
             try {
                 $recipeSpoonacular = $this->fetchSpoonacularRecipe($i);
+                $this->persistRecipeInDB($recipeSpoonacular);
             } catch(\Exception $e) {
-                
             }
-
-            $this->persistRecipeInDB($recipeSpoonacular);
         }
-            
 
         return Command::SUCCESS;
     }
