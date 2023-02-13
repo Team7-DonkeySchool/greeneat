@@ -1,0 +1,6 @@
+# config/packages/knp_gaufrette.yaml
+knp_gaufrette:
+    adapters:
+        foo:
+            local:
+                directory: /path/to/my/filesystem
