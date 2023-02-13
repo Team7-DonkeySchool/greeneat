@@ -1,0 +1,14 @@
+# config/packages/knp_gaufrette.yaml
+knp_gaufrette:
+    stream_wrapper: ~
+    
+    adapters:
+        recipe:
+            directory: '%kernel.project_dir%/public/assets/images/recipe'
+            create: true
+
+
+    filesystems:
+        recipe:
+            adapter:    recipe
+            alias:      reipe_filesystem
