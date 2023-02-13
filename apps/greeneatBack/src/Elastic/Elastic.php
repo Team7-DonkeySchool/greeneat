@@ -69,7 +69,7 @@ class Elastic
 
     }
 
-    private function getClient(): ElasticsearchClient
+    public function getClient(): ElasticsearchClient
     {
         if ($this->client) {
             return $this->client;
