@@ -7,23 +7,24 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\HttpOperation;
+use App\Controller\SortWithElasticController;
 use App\Repository\IngredientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            controller: SortWithElasticController::class,
+        ),
     ],
 )
 ]
 #[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
-
 class Ingredient
 {
     #[ORM\Id]
