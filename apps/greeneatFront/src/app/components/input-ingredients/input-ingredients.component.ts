@@ -89,7 +89,7 @@ export class InputIngredientsComponent {
 
           if(!ponderateGreenScoreByElement) return;
           this.greenScoreTotal += this.greenScoreService.calculateGreenScore(this.ingredientInfosRequested.ecoscore, this.ingredientInfosRequested.ratioCo2, this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
-          this.ecoScoreTotal += this.greenScoreService.calculateEcoScore(this.ingredientInfosRequested.ecoscore) / ponderateGreenScoreByElement;
+          this.ecoScoreTotal += this.greenScoreService.calculateEcoScore(this.ingredientInfosRequested.ecoscore);
           this.co2ScoreTotal += this.greenScoreService.calculateCo2Score(this.ingredientInfosRequested.ratioCo2) / ponderateGreenScoreByElement;
           this.h2oScoreTotal += this.greenScoreService.calculateH2oScore(this.ingredientInfosRequested.ratioH2o) / ponderateGreenScoreByElement;
           this.eqCo2Total += this.greenScoreService.calculateEqCo2Ingredient(this.ingredientInfosRequested.ratioCo2, this.infoFromRecipe[2]);
@@ -99,9 +99,20 @@ export class InputIngredientsComponent {
           this.ecoScore = Math.round(this.ecoScoreTotal / recipesIngredientFiltred.length);
           this.co2Score = Math.round(this.co2ScoreTotal / recipesIngredientFiltred.length);
           this.h2oScore = Math.round(this.h2oScoreTotal / recipesIngredientFiltred.length);
-          this.eqCo2 = Math.round(this.eqCo2Total);
-          this.consoH2o = Math.round(this.consoH2oTotal);
+          
+          if(this.eqCo2Total < 2000) {
+            this.co2Score = Math.round((1 - this.eqCo2Total / 2000) * 100);
+          } else {
+            this.co2Score = 0;
+          }
 
+          if(this.consoH2oTotal < 1500) {
+            this.h2oScore = Math.round((1 - this.consoH2oTotal / 1500) * 100);
+          } else {
+            this.h2oScore = 0;
+          }
+
+          this.greenScore = Math.round((this.co2Score + this.h2oScore + this.ecoScore) / 3);
         });
     });
 
