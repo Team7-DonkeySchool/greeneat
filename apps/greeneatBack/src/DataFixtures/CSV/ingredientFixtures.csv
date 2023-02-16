@@ -1,20 +1,18 @@
 nameFR,nameEN,ratioCo2,ratioH2o,ecoscore,seasonFrom,seasonTo,weightPerUnity
 sucre,sugar,0.07,20,B,01-01,12-31,0
 sucre de canne,brown sugar,0.07,50,B,01-01,12-31,0
-carotte,carrot,0.11,20,C,09-01,03-01,125
+carotte,carrot,0.11,20,A,09-01,03-01,125
 tomate,tomato,0.29,21,A,06-01,09-30,130
 melon,melon,0.09,22,B,06-01,09-30,800
 salade,salad,0.16,25,A,04-01,12-31,289
-anana,pineapple,0.17,25,B,11-01,03-31,3000
+ananas,pineapple,0.17,25,B,11-01,03-31,3000
 oignon,onion,0.10,27,A,09-01,04-30,100
 échalotte,shallot,0.10,27,B,01-01,12-31,25
 chou-fleur,cauliflower,0.10,28,B,09-01,03-31,1500
-brocolis,broccoli,0.11,28,B,09-01,11-30,0
+brocolis,broccoli,0.11,28,A,09-01,11-30,0
 épinard,spinach,0.14,29,B,09-01,05-31,0
 légume,vegetable,0.10,33,B,,,0
 butternut,butternut,0.06,33,A,09-01,01-31,1700
-potimarron,,0.06,33,A,09-01,01-31,1100
-potiron,,0.06,33,A,09-01,01-31,1100
 citrouille,pumpkin,0.06,33,A,09-01,01-31,5000
 courge,gourd,0.12,33,A,09-01,01-31,1500
 fraise,strawberry,0.22,34,A,05-01,07-31,20
@@ -53,7 +51,7 @@ pain,bread,0.12,160,A,,,0
 cerise,cherrie,0.29,160,A,06-01,07-31,7
 soja,soy,0.20,180,A,01-01,12-31,0
 lait de soja,soy milk,0.80,180,B,01-01,12-31,0
-mangue,mangoe,0.44,180,B,01-01,12-31,400
+mangue,mangoe,1.5,180,B,01-01,12-31,400
 goyave,guava,0.44,180,B,01-01,03-31,90
 pâte,pasta,0.14,184,A,01-01,12-31,0
 asperge,asparagus,0.70,215,A,04-01,06-30,40
@@ -104,3 +102,4 @@ ketchup,ketchup,0.154,0,B,,,0
 mayonnaise,mayonnaise,0.403,0,D,,,0
 rhum,rhum,0.11,87,C,,,0
 sel,salt,0.113,20,B,,,0
+poisson,fish,0.046,20,B,,,0
