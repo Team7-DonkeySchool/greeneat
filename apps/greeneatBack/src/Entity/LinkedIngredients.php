@@ -22,7 +22,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
 )
 ]
-
 class LinkedIngredients
 {
     #[ORM\Id]

@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Entity\Ingredient;
 use App\Entity\LinkedIngredients;
 use App\Entity\Recipe;
+use App\Entity\RecipeImage;
 use App\Repository\CategoryRepository;
 use App\Repository\IngredientRepository;
 use App\Repository\RecipeRepository;
@@ -22,7 +23,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class SpoonacularApiCommand extends Command
 {
-    public function __construct(private LoggerInterface $loggerInterface, private IngredientRepository $ingredientRepository, private RecipeRepository $recipeRepository, private CategoryRepository $categoryRepository, private HttpClientInterface $client, private EntityManagerInterface $manager)
+    public function __construct(
+        private LoggerInterface $logger, 
+        private IngredientRepository $ingredientRepository, 
+        private RecipeRepository $recipeRepository, 
+        private CategoryRepository $categoryRepository, 
+        private HttpClientInterface $client, 
+        private EntityManagerInterface $manager)
     {
         parent::__construct();
     }
@@ -55,15 +62,15 @@ class SpoonacularApiCommand extends Command
     {
         // persist category
 
-        $dishType = $recipeSpoonacular["dishTypes"];
+        $dishTypes = $recipeSpoonacular["dishTypes"];
 
-        if (in_array("starter", $dishType)) {
+        if (in_array("starter", $dishTypes)) {
             $category = $this->categoryRepository->find(1);
-        } else if (in_array("lunch", $dishType) || in_array("side dish", $dishType)) {
+        } else if (in_array("lunch", $dishTypes) || in_array("side dish", $dishTypes)) {
             $category = $this->categoryRepository->find(2);
-        } else if (in_array("dessert", $dishType)) {
+        } else if (in_array("dessert", $dishTypes)) {
             $category = $this->categoryRepository->find(3);
-        } else if (in_array("drink", $dishType) || in_array("beverage", $dishType)) {
+        } else if (in_array("drink", $dishTypes) || in_array("beverage", $dishTypes)) {
             $category = $this->categoryRepository->find(4);
         } else {
             $category = $this->categoryRepository->find(2);
@@ -73,7 +80,9 @@ class SpoonacularApiCommand extends Command
         $title = $recipeSpoonacular["title"];
 
         // checking if recipe is already in recipes table
-        if ($this->recipeRepository->findOneBy(array('name' => $title))) return;
+        if ($this->recipeRepository->findOneBy(array('name' => $title))) {
+            return;
+        }
 
         $recipe = new Recipe();
         $recipe->setName($title);
@@ -82,6 +91,18 @@ class SpoonacularApiCommand extends Command
         $recipe->setPartner("spoonacular");
         $recipe->setPartnerId($recipeSpoonacular["id"]);
         $this->manager->persist($recipe);
+
+        //persist recipeImage
+        $image = $recipeSpoonacular["image"]; 
+
+        $recipeImage = new RecipeImage();
+        $recipeImage->setImageFileFromUrl($image);
+        $recipeImage->setPosition(1);
+        $recipe->addRecipeImage($recipeImage);
+
+        $this->logger->debug('Prepare reciepe image', [
+            'recipeImage' => $recipeImage,
+        ]);
 
         // persist ingredients & linkedIngredients
         if ($recipeSpoonacular["extendedIngredients"]) {
@@ -115,17 +136,25 @@ class SpoonacularApiCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        //dd($this->fetchSpoonacularRecipe(645479));
 
         $lastSpoonacularRecipeId = $this->getLastRecipeSpoonacularId();
         $startBoucle = $lastSpoonacularRecipeId + 1;
-        $offset = 20;
+        $offset = 2;
         
         for ($i = $startBoucle; $i <= $startBoucle + $offset; $i++) {
             try {
                 $recipeSpoonacular = $this->fetchSpoonacularRecipe($i);
+
+                $this->logger->info('Fetched fetchSpoonacularRecipe', [
+                    'recipeSpoonacular' => $recipeSpoonacular,
+                ]);
+                //dd($recipeSpoonacular);
                 $this->persistRecipeInDB($recipeSpoonacular);
-            } catch(\Exception $e) {
+            }
+            catch(\Exception $e) {
+                $this->logger->error('Fetched Exception', [
+                    'exception' => $e,
+                ]);
             }
         }
 

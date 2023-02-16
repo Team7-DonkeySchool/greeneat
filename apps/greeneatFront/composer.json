@@ -1,0 +1,5 @@
+{
+    "require": {
+        "stof/doctrine-extensions-bundle": "^1.7"
+    }
+}

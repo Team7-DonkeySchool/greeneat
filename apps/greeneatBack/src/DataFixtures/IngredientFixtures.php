@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Ingredient;
-use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 //Dépendance pour lire le fichier CSV

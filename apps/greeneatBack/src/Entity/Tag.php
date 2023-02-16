@@ -19,7 +19,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
 )
 ]
-
 class Tag
 {
     #[ORM\Id]

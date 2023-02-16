@@ -26,7 +26,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ['groups' => 'write_recipe']
 )
 ]
-
 class Recipe
 {
     #[ORM\Id]
@@ -40,7 +39,7 @@ class Recipe
     private ?string $name = null;
 
     #[Groups(['write_recipe'])]
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeImage::class)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeImage::class, cascade: ['persist'])]
     private Collection $recipeImages;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
