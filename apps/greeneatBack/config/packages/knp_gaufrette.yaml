@@ -1,0 +1,13 @@
+knp_gaufrette:
+    stream_wrapper: ~
+
+    adapters:
+        recipe:
+            local:
+                directory: '%kernel.project_dir%/public/assets/images/recipe'
+                create: true
+    
+    filesystems:
+        recipe:
+            adapter:    recipe
+            alias:      recipe_filesystem

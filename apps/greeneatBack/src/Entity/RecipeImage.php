@@ -8,6 +8,10 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\RecipeImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use App\File\UrlFile;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: RecipeImageRepository::class)]
 #[ApiResource(
@@ -17,9 +21,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
 )
 ]
-
+#[Vich\Uploadable]
 class RecipeImage
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -40,6 +46,10 @@ class RecipeImage
 
     #[ORM\ManyToOne(inversedBy: 'recipeImages')]
     private ?recipe $recipe = null;
+
+    #[Vich\UploadableField(mapping: 'recipe', fileNameProperty: 'path')]
+    private ?File $imageFile = null;
+
 
     public function getId(): ?int
     {
@@ -92,5 +102,35 @@ class RecipeImage
         $this->recipe = $recipe;
 
         return $this;
+    }
+
+    public function setImageFileFromUrl(string $url): void
+    {
+        $this->setImageFile(new UrlFile($url));
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 }

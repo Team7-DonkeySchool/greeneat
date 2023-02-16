@@ -17,7 +17,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
 )
 ]
-
 class IngredientImage
 {
     #[ORM\Id]
