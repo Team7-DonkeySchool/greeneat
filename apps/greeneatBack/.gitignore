@@ -5,8 +5,12 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+###### à retirer après phase de tests
+/public/assets/images/
+######
 /var/
 /vendor/
+vendor/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

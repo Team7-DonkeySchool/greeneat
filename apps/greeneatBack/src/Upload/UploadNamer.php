@@ -18,6 +18,7 @@ final class UploadNamer implements NamerInterface
     private bool $transliterate = false;
 
     public function __construct(private readonly Transliterator $transliterator)
+
     {
     }
 
