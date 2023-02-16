@@ -7,9 +7,10 @@ help:
 install: ## Install dependencies
 	@npm install
 	@ng add @ng-bootstrap/ng-bootstrap
+	@npm install localstorage-polyfill
 
 start: ## Run the app
-	@npm start
+	@npm run dev:ssr
 
 open: ## Open the app
 	@ng serve --o
