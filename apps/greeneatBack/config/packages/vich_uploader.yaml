@@ -9,7 +9,7 @@ vich_uploader:
         recipe:
             uri_prefix: /recipe
             upload_destination: recipe
-            namer: Vich\UploaderBundle\Naming\OrignameNamer
+            namer: App\Upload\UploadNamer
 
     # mappings:
     #     products:
