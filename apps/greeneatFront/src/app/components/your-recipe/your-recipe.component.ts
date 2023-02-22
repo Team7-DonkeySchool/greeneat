@@ -29,6 +29,7 @@ export class YourRecipeComponent {
     return this.Bscore;
   }
 
+  //! color score
   public ColorScore(score: any) {
     return "color: rgb(" + this. ColorScoreR(score) + ", " + this.ColorScoreG(score) + ", " + this.ColorScoreB(score) + ");";
 
