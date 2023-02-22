@@ -5,11 +5,27 @@ import { YourRecipeComponent } from './components/your-recipe/your-recipe.compon
 import { IngredientsTestsComponent } from './components/ingredients-tests/ingredients-tests.component';
 import { OpenfoodfactsApiTestComponent } from './components/openfoodfacts-api-test/openfoodfacts-api-test.component';
 import { RecipeApiTestComponent } from './components/recipe-api-test/recipe-api-test.component';
+import { InputIngredientsComponent } from './components/input-ingredients/input-ingredients.component';
 
 const routes: Routes = [
   { 
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'input-ingredient',
+        pathMatch: 'full',
+      },
+      {
+        path: 'input-ingredient',
+        component: InputIngredientsComponent,
+      },
+      {
+        path: 'your-recipe',
+        component: YourRecipeComponent,
+      },
+    ],
   },
   { 
     path: 'spoonacular_recipes',
