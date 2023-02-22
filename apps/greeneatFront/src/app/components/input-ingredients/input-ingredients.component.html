@@ -2,6 +2,7 @@
     <div class="text-recipes d-flex justify-content-center">
         <div class="container">
             <div *ngIf="!isGreenScoreVisible">
+                <h1 class="text-center">Calculez le GreenScore de votre recette</h1>
                 <h4 class="text-center">Découvrez l'impact de vos recettes sur votre santé et l'environnement grâce à notre GreenScore</h4>
             </div>
             <div *ngIf="!isGreenScoreVisible">
@@ -32,7 +33,7 @@
             <div *ngIf="isGreenScoreVisible" class="mt-200">
                 <app-your-recipe  [greenScore]="greenScore" [ecoScore]="ecoScore" [co2Score]="co2Score" [h2oScore]="h2oScore" [eqCo2Total]="eqCo2Total" [consoH2oTotal]="consoH2oTotal" [recipe]="recipe"></app-your-recipe>
                 <div class="greenButton">
-                    <button (click)="onCalculateGreenScore()"
+                    <button (click)="onCalculateNewGreenScore()"
                         class="btn-calcul-text h1 bg-green justify-content-center">Calcule un nouveau Green</button><br>
                 </div>
             </div>

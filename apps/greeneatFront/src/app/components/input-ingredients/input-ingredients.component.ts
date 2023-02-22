@@ -119,4 +119,8 @@ export class InputIngredientsComponent {
     }, 2000);
   }
 
+  onCalculateNewGreenScore() {
+    this.isGreenScoreVisible = false;
+  }
+
 }
