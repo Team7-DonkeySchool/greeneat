@@ -11,21 +11,6 @@ const routes: Routes = [
   { 
     path: '',
     component: HomeComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'input-ingredient',
-        pathMatch: 'full',
-      },
-      {
-        path: 'input-ingredient',
-        component: InputIngredientsComponent,
-      },
-      {
-        path: 'your-recipe',
-        component: YourRecipeComponent,
-      },
-    ],
   },
   { 
     path: 'spoonacular_recipes',
