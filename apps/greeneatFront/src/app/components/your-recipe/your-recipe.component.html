@@ -1,13 +1,11 @@
-<div class="py--5 container">
-    <h1 class="text-center text-light pb-5">Your recipes</h1>
+<div class="py-1 container">
 
-
-    <div class="bg-green rounded-3">
+    <div class="bg-green rounded-3 pb-3" [ngClass]="{'orange': greenScore > 35 && greenScore <= 70, 'red': greenScore <= 35 }">
         <div class="row text-center pb-2">
             <div class="col-2">
             </div>
             <div class="col-8">
-                <h1 class="display-1 text-white">GreenScore</h1>
+                <h1 class="text-white mt-3">GreenScore</h1>
             </div>
             <div class="col-2 pt-2">
                 <button type="button" class="btn btn-outline-secondary me-2 rounded-circle bg-secondary px-3 text-white"
@@ -18,14 +16,14 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="bg-gray rounded-3 w-50 text-center">
-                <h3 class="text-black">0/100</h3>
+                <h3 class="text-black mb-0">{{greenScore}} / 100</h3>
             </div>
         </div>
     </div>
 
 
 
-    <div class="row gx-5 row-cols-1 row-cols-sm-3 d-flex justify-content-between py-5">
+    <div class="row gx-5 row-cols-1 row-cols-sm-3 d-flex justify-content-between py-5 px-3">
 
         <div class="col">
 
@@ -33,19 +31,19 @@
 
                 <div class="col-2"></div>
                 <div class="col-8">
-                    <h4 class="text-white">H<sub>2</sub>O-Score</h4>
+                    <h4 class="text-white mt-3">H<sub>2</sub>O-Score</h4>
                 </div>
                 <div class="col-2 pt-2">
                     <button type="button"
                         class="btn btn-outline-secondary me-2 rounded-circle bg-green px-3 text-white"
-                        placement="bottom" ngbPopover="hmmm charal" popoverTitle="Information">
+                        placement="bottom" ngbPopover="Consommation en eau de la recette, par personne : {{ consoH2oTotal }} litres" popoverTitle="Information">
                         i
                     </button>
                 </div>
 
                 <div class="d-flex justify-content-center">
                     <div class="bg-gray rounded-3 w-50">
-                        <h3 class="text-black">0/100</h3>
+                        <h5 class="text-black mb-0">{{h2oScore}} / 100</h5>
                     </div>
                 </div>
 
@@ -59,19 +57,19 @@
                 <div class="col-2">
                 </div>
                 <div class="col-8">
-                    <h4 class="text-white">CO<sub>2</sub>-Score</h4>
+                    <h4 class="text-white mt-3">CO<sub>2</sub>-Score</h4>
                 </div>
                 <div class="col-2 pt-2">
                     <button type="button"
                         class="btn btn-outline-secondary me-2 rounded-circle bg-green px-3 text-white"
-                        placement="bottom" ngbPopover="hmmm charal" popoverTitle="Information">
+                        placement="bottom" ngbPopover="Equivalent en CO2 de la recette, par personne : {{ eqCo2Total }} grammes" popoverTitle="Information">
                         i
                     </button>
                 </div>
 
                 <div class="d-flex justify-content-center">
                     <div class="bg-gray rounded-3 w-50">
-                        <h3 class="text-black">0/100</h3>
+                        <h5 class="text-black mb-0">{{co2Score}} / 100</h5>
                     </div>
                 </div>
 
@@ -85,19 +83,19 @@
                 <div class="col-2">
                 </div>
                 <div class="col-8">
-                    <h4 class="text-white">Nutri-Score</h4>
+                    <h4 class="text-white mt-3">Eco-Score</h4>
                 </div>
                 <div class="col-2 pt-2">
                     <button type="button"
                         class="btn btn-outline-secondary me-2 rounded-circle bg-green px-3 text-white"
-                        placement="bottom" ngbPopover="hmmm charal" popoverTitle="Information">
+                        placement="bottom" ngbPopover="{{ ecoScoreLabel }}" popoverTitle="Information">
                         i
                     </button>
                 </div>
 
                 <div class="d-flex justify-content-center">
                     <div class="bg-gray rounded-3 w-50">
-                        <h3 class="text-black">0/100</h3>
+                        <h5 class="text-black mb-0">{{ecoScore}} / 100</h5>
                     </div>
                 </div>
                 
@@ -108,8 +106,8 @@
 
 </div>
 
-<div class="background">
-    <!--<app-seasonal-recipes></app-seasonal-recipes> -->
+<!-- <div class="background">
+    <app-seasonal-recipes></app-seasonal-recipes> -->
 
 
 
@@ -117,16 +115,7 @@
         <ngb-accordion activeIds="static-1">
             <ngb-panel id="static-1" title="Ingredients">
                 <ng-template ngbPanelContent>
-                    tomates <br>
-                    oignons <br>
-                    ail
-                    huile d'olive
-                    sel
-                    poivre
-                    thym
-                    laurier
-                    steak haché
-                    pate
+                    {{ recipe }}
                 </ng-template>
             </ngb-panel>
             <ngb-panel id="static-2">
@@ -149,7 +138,7 @@
         </ngb-accordion>
     </div>
 
-    <div class="seasonal-title pt-5 text-center">
+    <!-- <div class="seasonal-title pt-5 text-center">
         <h2>Recettes</h2>
         <span>Nos proposition de recettes</span>
     </div>
@@ -171,4 +160,4 @@
 
 
     <section class="py-55"></section>
-</div>
+</div> --> 

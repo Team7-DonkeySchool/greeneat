@@ -1,24 +1,41 @@
 <div class="your-recipes">
     <div class="text-recipes d-flex justify-content-center">
         <div class="container">
-            <label for="textarea1" class="form-label"></label>
-            <textarea [(ngModel)]="recipe" class="form-control" id="textarea1" rows="5"
-                placeholder="Exemple : 200 g de sucre"></textarea>
-            <p>Quantités pour {{ numberPersons }} personnes</p>
-
-            <div class="anecdote py-5">
-                <h4>Le saviez-vous ?</h4>
-                <span>Les manchots mâles draguent en offrant aux femelles des cailloux.</span>
+            <div *ngIf="!isGreenScoreVisible">
+                <h1 class="text-center">Calculez le GreenScore de votre recette</h1>
+                <h4 class="text-center">Découvrez l'impact de vos recettes sur votre santé et l'environnement grâce à notre GreenScore</h4>
             </div>
-            <h1 *ngIf="isGreenScoreVisible" [ngClass]="{'orange': greenScore > 35 && greenScore <= 70, 'red': greenScore <= 35 }">Votre GreenScore : {{ greenScore }} / 100</h1>
-            <h4 *ngIf="isGreenScoreVisible" [ngClass]="">Votre EcoScore : {{ ecoScore }} / 100</h4>
-            <h4 *ngIf="isGreenScoreVisible" [ngClass]="">Votre CO2-Score : {{ co2Score }} / 100</h4>
-            <h6 *ngIf="isGreenScoreVisible" [ngClass]="">Equivalent de CO2 : {{ eqCo2Total }} grammes par personne</h6>
-            <h4 *ngIf="isGreenScoreVisible" [ngClass]="">Votre H2O-Score : {{ h2oScore }} / 100</h4>
-            <h6 *ngIf="isGreenScoreVisible" [ngClass]="">Consommation en eau : {{ consoH2oTotal }} litres par personne</h6>
-            <div class="greenButton">
-                <button (click)="onCalculateGreeScore()"
-                    class="btn-calcul-text h1 bg-green justify-content-center">Calcule ton Green</button><br>
+            <div *ngIf="!isGreenScoreVisible">
+                <label for="textarea1" class="form-label"></label>
+                <textarea [(ngModel)]="recipe" class="form-control" id="textarea1" rows="5"
+                    placeholder="Exemple : 200 g de sucre"></textarea>
+                <p>Quantités pour {{ numberPersons }} personnes</p>
+                <div class="anecdote py-5">
+                    <h4>Le saviez-vous ?</h4>
+                    <span>Les manchots mâles draguent en offrant aux femelles des cailloux.</span>
+                </div>
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status" *ngIf="isLoading">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <h1 *ngIf="isGreenScoreVisible" [ngClass]="{'orange': greenScore > 35 && greenScore <= 70, 'red': greenScore <= 35 }">Votre GreenScore : {{ greenScore }} / 100</h1>
+                    <h4 *ngIf="isGreenScoreVisible" [ngClass]="{'orange': ecoScore > 35 && ecoScore <= 70, 'red': ecoScore <= 35 }">Votre EcoScore : {{ ecoScore }} / 100</h4>
+                    <h4 *ngIf="isGreenScoreVisible" [ngClass]="{'orange': co2Score > 35 && co2Score <= 70, 'red': co2Score <= 35 }">Votre CO2-Score : {{ co2Score }} / 100</h4>
+                    <h6 *ngIf="isGreenScoreVisible" [ngClass]="">Equivalent de CO2 : {{ eqCo2Total }} grammes par personne</h6>
+                    <h4 *ngIf="isGreenScoreVisible" [ngClass]="{'orange': h2oScore > 35 && h2oScore <= 70, 'red': h2oScore <= 35 }" class="mt-2">Votre H2O-Score : {{ h2oScore }} / 100</h4>
+                    <h6 *ngIf="isGreenScoreVisible" [ngClass]="">Consommation en eau : {{ consoH2oTotal }} litres par personne</h6>
+                </div>
+                <div class="greenButton">
+                    <button (click)="onCalculateGreenScore()"
+                        class="btn-calcul-text h1 bg-green justify-content-center">Calcule ton Green</button><br>
+                </div>
+            </div>
+            <div *ngIf="isGreenScoreVisible" class="mt-200">
+                <app-your-recipe  [greenScore]="greenScore" [ecoScore]="ecoScore" [co2Score]="co2Score" [h2oScore]="h2oScore" [eqCo2Total]="eqCo2Total" [consoH2oTotal]="consoH2oTotal" [recipe]="recipe"></app-your-recipe>
+                <div class="greenButton">
+                    <button (click)="onCalculateNewGreenScore()"
+                        class="btn-calcul-text h1 bg-green justify-content-center">Calcule un nouveau Green</button><br>
+                </div>
             </div>
         </div>
     </div>
