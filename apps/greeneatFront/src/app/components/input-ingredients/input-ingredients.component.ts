@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { concatMap, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { GreenScoreService } from 'src/app/services/green-score.service';
 import { IngredientsService } from 'src/app/services/ingredients.service';
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
     templateUrl: './input-ingredients.component.html',
     styleUrls: ['./input-ingredients.component.scss']
 })
-export class InputIngredientsComponent {
+export class InputIngredientsComponent implements OnInit {
   public recipesIngredient?: string[];
   public recipe?: string;
   public infoFromRecipe?: any;
@@ -29,13 +29,30 @@ export class InputIngredientsComponent {
   public eqCo2Total: number = 0;
   public consoH2oTotal: number = 0;
   public numberPersons: number = environment.numberPersonsPerRecipe;
+  url: string = '';
+  public getGreeneatension: string = ''
 
   constructor (private greenScoreService: GreenScoreService, private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {
   }
 
+
+  
   ngOnInit(): void {
     this.isGreenScoreVisible = false;
+
+    // Vérifier si window est défini (pour éviter les erreurs de compilation)
+    if (typeof window !== 'undefined') {
+      this.url = window.location.href;
+      console.warn(this.url);
+
+      this.getGreeneatension = decodeURIComponent(this.url.split('=')[1]);
+      console.warn(this.getGreeneatension); // affiche "le texte de l'URL"
+     
+    }
+    
   }
+
+  
 
   public onCalculateGreeScore(){
     this.greenScore = 0;

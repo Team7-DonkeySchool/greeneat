@@ -2,9 +2,10 @@
     <div class="text-recipes d-flex justify-content-center">
         <div class="container">
             <label for="textarea1" class="form-label"></label>
-            <textarea [(ngModel)]="recipe" class="form-control" id="textarea1" rows="5"
-                placeholder="Exemple : 200 g de sucre"></textarea>
+            <!-- <textarea [(ngModel)]="recipe" class="form-control" id="textarea1" rows="5" [value]="name">  </textarea> -->
+            <textarea class="form-control" id="textarea1" rows="5" [value]="getGreeneatension">  </textarea>
             <p>Quantités pour {{ numberPersons }} personnes</p>
+
 
             <div class="anecdote py-5">
                 <h4>Le saviez-vous ?</h4>
