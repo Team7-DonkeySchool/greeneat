@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IngredientsService } from './ingredients.service';
+import { RegexIngredientService } from './regex-ingredient.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +13,9 @@ export class GreenScoreService {
   private consoH2oMax: number = environment.consoH2oMax;
   private numberPersons: number = environment.numberPersonsPerRecipe;
 
-  constructor() { }
+  public scores: number[] = [];
 
-  /* functions to calculate the green score */
-
-  public calculateGreenScore(ecoscore: string, ratioCo2: number, ratioH2o: number) {
-
-    return (this.calculateEcoScore(ecoscore) + this.calculateCo2Score(ratioCo2) + this.calculateH2oScore(ratioH2o)) / 3;
-  }
+  constructor(private regexIngredient: RegexIngredientService, private ingredientService: IngredientsService) {}
 
   public calculateEcoScore(ecoscore: string) {
     let ecoScoreNumber: number = 0;
