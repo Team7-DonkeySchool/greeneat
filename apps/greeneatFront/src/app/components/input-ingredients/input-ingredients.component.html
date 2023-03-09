@@ -1,15 +1,12 @@
 <div class="your-recipes">
     <div class="text-recipes d-flex justify-content-center">
         <div class="container">
-            <div *ngIf="!isGreenScoreVisible">
-                <h1 class="text-center">Calculez le GreenScore de votre recette</h1>
-                <h4 class="text-center">Découvrez l'impact de vos recettes sur votre santé et l'environnement grâce à notre GreenScore</h4>
             </div>
             <div *ngIf="!isGreenScoreVisible">
                 <label for="textarea1" class="form-label"></label>
-                <textarea [(ngModel)]="recipe" class="form-control" id="textarea1" rows="5"
-                    placeholder="Exemple : 200 g de sucre"></textarea>
-                <p>Quantités pour {{ numberPersons }} personnes</p>
+            <!-- <textarea [(ngModel)]="recipe" class="form-control" id="textarea1" rows="5" [value]="name">  </textarea> -->
+            <textarea class="form-control" id="textarea1" rows="5" [value]="getGreeneatension">  </textarea>
+            <p>Quantités pour {{ numberPersons }} personnes</p>
                 <div class="anecdote py-5">
                     <h4>Le saviez-vous ?</h4>
                     <span>Les manchots mâles draguent en offrant aux femelles des cailloux.</span>
